@@ -1,0 +1,59 @@
+
+/* Cryptocurrency Table */
+table {
+	table-layout: fixed;
+}
+
+td.industry {
+	white-space: nowrap;
+	overflow:hidden;
+	font-size: .9em;
+}
+
+td.currency-name {
+	overflow: hidden;
+}
+
+td.industry ul {
+	padding: 0;
+	margin: 0;
+}
+
+
+/* Cryptoccurency Detail */
+ul.industry-list {
+	display: block;
+	list-style: square inside;
+	list-style-type: circle !important;
+	overflow-y: hidden;
+}
+
+.industry-list li {
+	display: inline;
+	padding-right: .3em;
+}
+
+li.industry a {
+	background-color: white;
+	color: #343434;
+	padding: .5em 1.3em;
+}
+
+li.industry {
+	transform: skewX(-16deg)
+}
+
+li.industry a {
+	transform: skewX(16deg);
+}
+
+.industryList {
+	margin: 1em auto;
+}
+
+.industryList li {
+	margin: 1em .3em;
+	display: inline-block;
+}
+
+

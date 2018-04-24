@@ -1,0 +1,10 @@
+.mui-container form.mui-form input {
+	color: white;
+	border-bottom: 1px solid #fff200;
+
+}
+
+::-webkit-input-placeholder { color: #776 !important;} /* Chrome/Opera/Safari */
+::-moz-placeholder { color: #776 !important;} /* firefox 19+ */
+::-ms-input-placeholder { color: #776 !important;} /* ie */
+::-moz-placeholder { color: #776 !important;} /*below firefox 19 */

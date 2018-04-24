@@ -1,0 +1,117 @@
+@import url('https://fonts.googleapis.com/css?family=IBM+Plex+Mono');
+
+body {
+	font-family: 'IBM Plex Mono', monospace;
+	color: #fff;
+	background-color: #242124;
+}
+
+main {
+	margin: 2.06em auto;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	color: #fff;
+}
+
+.footer {
+	margin: 5em auto;
+}
+
+p {
+	color: #fff;
+}
+
+a {
+	color:  #7efff5;
+}
+
+.industry li a {
+	background-color: none;
+}
+
+.mui-table.mui-table--bordered>tbody>tr>td,
+.mui-table>thead>tr>th {
+  border-bottom: 1px solid rgba(255,255,255,.8);
+}
+
+.mui-btn.mui-btn--flat {
+	background-color: white;
+}
+
+.mui-panel.industry {
+	background: black;
+	color: white;
+	transform: skewX(-10deg);
+	text-transform: uppercase;
+}
+
+img.coin-avatar {
+	height: 12em;
+	width: 12em;
+}
+
+.mui-btn {
+	  border-radius: 0px !important;
+}
+
+.button-group {
+	display: flex;
+	justify-content: space-between;
+}
+
+.button-group button:nth-child(odd) {
+	background-color: #fff200;
+}
+
+.button-group button:nth-child(even) {
+	background-color: #3ae374;
+}
+
+.button-group a {
+	background-color: #fff200;
+}
+
+i.brand-icon {
+	margin-bottom: -4px;
+	width: 17px;
+	height: 17px;
+	display: inline-block;
+	background: url('http://res.cloudinary.com/dattofkud/image/upload/v1524155762/brands/GitHub-Mark-Light-32px.png') no-repeat;
+	background-size: 17px;
+}
+
+img#xray-brand {
+	height: 40px;
+	width: 40px;
+	margin: 5em;
+}
+
+.error {
+	margin: 3em auto;
+	padding: 10px;
+}
+
+.error h2 {
+	color: #ff3838;
+}
+
+
+@media (min-width:320px) { /* smartphones, iPhone, portrait 480x320 phones */ }
+@media (min-width:481px) { /* portrait e-readers (Nook/Kindle), smaller tablets @ 600 or @ 640 wide. */ }
+@media (min-width:641px) { /* portrait tablets, portrait iPad, landscape e-readers, landscape 800x480 or 854x480 phones */ }
+@media (min-width:961px) { /* tablet, landscape iPad, lo-res laptops ands desktops */ 
+}
+@media (min-width:1025px) { /* big landscape tablets, laptops, and desktops */ 
+	#table td, #table th {
+		font-size: 1.3em ;
+	}
+ #table td.industry {
+ 	font-size: 1em;
+ }
+
+}
+@media (min-width:1281px) { /* hi-res laptops and desktops */ 
+}
+
+
