@@ -39,8 +39,8 @@ const posNegStyle = (value) => {
   return style;
 };
 
-const baseAPI = "https://cryptocat-rjirulkivi.now.sh/api"
-// const baseAPI = "http://localhost:3000/api"
+// const baseAPI = "https://cryptocat-rjirulkivi.now.sh/api"
+const baseAPI = "http://localhost:3000/api"
 module.exports = {
   $round,
   round,

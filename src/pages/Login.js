@@ -104,8 +104,7 @@ export class Login extends Component {
 			  				onClick={sumbitHandler}
 			  >Submit</button>
 		  </form>
-			{(this.state.errorMessage) ? <Error msg={this.state.errorMessage} clearMsg={this.clearError}/>: ''}
-
+			{this.state.errorMessage && <Error msg={this.state.errorMessage} clearMsg={this.clearError}/>}
 		</div>)
 	}
 }

@@ -3,12 +3,10 @@ import axios from 'axios'
 import { CryptoTableMenu, CryptoRowItem} from '../components/CryptoTable'
 import { baseAPI } from '../utils'
 
-const SKIP_AMOUNT = 50
+const SKIP_AMOUNT = 30
 
 export class Cryptocurrencies extends Component {
-	constructor(){
-		super()
-		this.state = {
+		state = {
 			paginate: {
 				start: 0,
 				limit: 0
@@ -24,7 +22,6 @@ export class Cryptocurrencies extends Component {
 				'percent_change_24h': ''
 			}
 		}
-	}
 
 	componentDidMount() {
 		this.fetchCryptoData()
@@ -46,7 +43,7 @@ export class Cryptocurrencies extends Component {
 			return industryElements
 		})
 		.then((industryElements) => {
-			this.fetchtickerData(industryElements)
+			this.fetchTickerData(industryElements)
 		})
 		.catch((err) => console.error(err));
 	}

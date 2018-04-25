@@ -3,23 +3,21 @@ import axios from 'axios'
 import Select from 'react-select'
 import cookie from 'react-cookies' 
 import 'react-select/dist/react-select.css'
-import {ErrorsList} from '../components/ErrorsList'
 import { baseAPI } from '../utils'
 
 
 export class AddIndustryToCryptocurrency extends Component{
-
-	constructor(props) {
+	constructor(props){
 		super(props)
 		this.state = {
-			cryptoOptions: '',
-			industryOptions: '',
-			selectedCrypto: '',
-			selectedIndustry: '',
-			accessToken: '',
-			errors: ''
+				cryptoOptions: '',
+				industryOptions: '',
+				selectedCrypto: '',
+				selectedIndustry: '',
+				accessToken: '',
+				errors: ''
+			}
 		}
-	}
 
 	componentWillMount(){
 		const accessToken = cookie.load('access_token')
@@ -28,7 +26,7 @@ export class AddIndustryToCryptocurrency extends Component{
 		this.setState({accessToken})
 	}
 
-	loadIndustryOptions(){
+	loadIndustryOptions = () => {
 		axios.get(`${baseAPI}/industries?filter[where][depth]=1`)
 		.then(response => {
 			// include depth for embedding on crytocurrency
@@ -43,7 +41,7 @@ export class AddIndustryToCryptocurrency extends Component{
     .catch(err => console.log(err))
 	}
 
-	loadCryptocurrencyOptions(){
+	loadCryptocurrencyOptions = () => {
 		axios.get(`${baseAPI}/cryptocurrencies`)
 		.then(response => {
 			return response.data.map((crypto, i) => {
@@ -57,7 +55,7 @@ export class AddIndustryToCryptocurrency extends Component{
     .catch(err => console.log(err))
 	}
 
-	onSelectionChangeCrypto(selectedValue){
+	onSelectionChangeCrypto = (selectedValue) => {
 		this.setState({
 			selectedCrypto: selectedValue
 		}, () => {
@@ -65,7 +63,7 @@ export class AddIndustryToCryptocurrency extends Component{
 		})
 	}
 
-	onSelectionChangeIndustry(selectedValue){
+	onSelectionChangeIndustry = (selectedValue) => {
 		this.setState({
 			selectedIndustry: selectedValue
 		}, () => {
@@ -73,21 +71,18 @@ export class AddIndustryToCryptocurrency extends Component{
 		})
 	}
 
-	onPair(){
+	onPair = () => {
 		const { selectedIndustry, selectedCrypto } = this.state
 		const existingIndustries = selectedCrypto.industries || []
-
 		const newIndustry = {
 			id: selectedIndustry.id,
 			depth: selectedIndustry.depth,
 			name: selectedIndustry.name
 		}
-
 		const patchData = {
 			industries: [...existingIndustries, newIndustry]
 		}
 
-		console.log('patched Data: ', patchData)
 		axios.request({
 			url: `${baseAPI}/cryptocurrencies/${selectedCrypto.id}`,
 			method: 'patch',
@@ -105,7 +100,7 @@ export class AddIndustryToCryptocurrency extends Component{
 		})
 	}	
 
-	onUnpair(){
+	onUnpair = () =>{
 		const { selectedIndustry, selectedCrypto } = this.state
 		const existingIndustries = selectedCrypto.industries || []
 		console.log(`onUnpair, existingIndustries inital value: ${existingIndustries}`)
@@ -136,7 +131,7 @@ export class AddIndustryToCryptocurrency extends Component{
 		})
 	}	
 
-	scrape() {
+	scrape = () => {
 		axios.request({
 			url: `${baseAPI}/cryptocurrencies/scrapecrypto`,
 			method: 'get',
@@ -165,7 +160,7 @@ export class AddIndustryToCryptocurrency extends Component{
 						<label>Crypto:
 							<Select
 								value={this.state.selectedCrypto}
-								onChange={this.onSelectionChangeCrypto.bind(this)} 
+								onChange={this.onSelectionChangeCrypto} 
 								name="cryptoOption"
 								options={cryptoOptions}
 								labelKey="name"
@@ -179,7 +174,7 @@ export class AddIndustryToCryptocurrency extends Component{
 							<Select
 								name="industryOption"
 								value={this.state.selectedIndustry}
-								onChange={this.onSelectionChangeIndustry.bind(this)}
+								onChange={this.onSelectionChangeIndustry}
 								options={industryOptions}
 								labelKey="name"
 								valueKey="id"
@@ -190,17 +185,16 @@ export class AddIndustryToCryptocurrency extends Component{
 				<br />
 				<div className="mui-row">
 					<div className="button-group">
-						<button onClick={this.onUnpair.bind(this)} className="mui-btn alrt mui-col-xs-6">Unpair</button>
-						<button onClick={this.onPair.bind(this)} className="mui-btn mui-col-xs-6">Pair</button>
+						<button onClick={this.onUnpair} className="mui-btn alrt mui-col-xs-6">Unpair</button>
+						<button onClick={this.onPair} className="mui-btn mui-col-xs-6">Pair</button>
 					</div>
 				</div>
 				<br/>
 				<div className="mui-row">
 					<div className="button-group">
-						<button onClick={this.scrape.bind(this)} className="mui-btn mui-col-xs-12">SCRAPE</button>
+						<button onClick={this.scrape} className="mui-btn mui-col-xs-12">SCRAPE</button>
 					</div>
 				</div>
-				<ErrorsList errors={this.state.errors}/>
 		</div>
 		)
 	}
