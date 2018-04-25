@@ -11,7 +11,6 @@ export class Login extends Component {
 			email: '',
 			password: '',
 			accessToken: '',
-			errors: '',
 			errorMessage: '',
 		}
 	}
@@ -67,9 +66,7 @@ export class Login extends Component {
  	 })
 		.catch(err => {
 			const response = err.response
-			this.setState({errors: response}, () => {
-				console.error(this.state.errors.data)
-			})
+			this.setState({errorMessage: response.data.error.message}, () => console.log(this.state.errorMessage))
 		})
  }
 
