@@ -1,11 +1,10 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import cookie from 'react-cookies'
-import ErrorsList from '../components/ErrorsList'
-import '../components/css/forms.css'
+import {ErrorsList} from '../components/ErrorsList'
 import { baseAPI } from '../utils'
 
-export default class Login extends Component {
+export class Login extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {

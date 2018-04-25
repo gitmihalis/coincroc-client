@@ -1,7 +1,6 @@
 import React from 'react'
-import './css/cryptocurrency.css'
 
-const IndustryTableMenu = props => (
+export const IndustryTableMenu = props => (
   
 	<thead>
     <tr>
@@ -28,5 +27,3 @@ const IndustryTableMenu = props => (
     </tr>
   </thead>
 )
-
-export default IndustryTableMenu

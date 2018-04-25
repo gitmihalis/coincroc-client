@@ -1,15 +1,15 @@
 import React from 'react'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
-import Cryptocurrencies from '../pages/Cryptocurrencies'
-import Cryptocurrency from '../pages/Cryptocurrency'
-import AddIndustryToCryptocurrency from '../pages/AddIndustryToCryptocurrency'
-import Industries from '../pages/Industries'
-import Industry from '../pages/Industry'
-import About from '../pages/About'
-import Login from '../pages/Login'
-import Logout from '../pages/Logout'
+import { Cryptocurrencies } from '../pages/Cryptocurrencies'
+import {Cryptocurrency} from '../pages/Cryptocurrency'
+import {AddIndustryToCryptocurrency} from '../pages/AddIndustryToCryptocurrency'
+import {Industries} from '../pages/Industries'
+import {Industry} from '../pages/Industry'
+import {About} from '../pages/About'
+import {Login} from '../pages/Login'
+import {Logout} from '../pages/Logout'
 
-const Main = () => (
+export const Main = () => (
 	<Router>
 		<Switch>
 			<Route exact path="/" component={Cryptocurrencies}/>
@@ -23,5 +23,3 @@ const Main = () => (
 		</Switch>
 	</Router>
 )
-
-export default Main

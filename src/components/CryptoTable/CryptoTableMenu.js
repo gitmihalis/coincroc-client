@@ -1,6 +1,7 @@
 import React from 'react'
 
-export const CryptoTableMenu = (props)  => ( 
+export const CryptoTableMenu = props => (
+  
 	<thead>
     <tr>
       <th className="currency-name">

@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import { baseAPI } from '../utils'
 
 
-class Industries extends Component{
+export class Industries extends Component{
 
   constructor(){
     super()
@@ -60,5 +60,3 @@ class Industries extends Component{
   }
 
 }
-
-export default Industries

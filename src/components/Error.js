@@ -1,7 +1,7 @@
 import React from 'react'
-import ErrorsList from './ErrorsList'
+import {ErrorsList} from './ErrorsList'
 
-const Error = (props) => {
+export const Error = (props) => {
 	return (
 		<div className="mui-row">
 			<div className="error mui--text-center">
@@ -12,4 +12,3 @@ const Error = (props) => {
 	)
 }
 
-export default Error 

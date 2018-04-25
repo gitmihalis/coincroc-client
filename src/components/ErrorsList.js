@@ -1,7 +1,6 @@
 import React from 'react'
-import './css/errors.css'
 
-const ErrorsList = ({errors}) => {
+export const ErrorsList = ({errors}) => {
   return (
   	<div className='errors-list blink-me'>
     {Object.keys(errors).map((fieldName, i) => {
@@ -19,5 +18,3 @@ const ErrorsList = ({errors}) => {
   </div>
   )
 }
-
-export default ErrorsList

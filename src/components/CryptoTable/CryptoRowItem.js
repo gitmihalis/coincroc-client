@@ -1,8 +1,8 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { $round, posNegStyle } from '../utils'
+import { $round, posNegStyle } from '../../utils'
 
-export const CryptocurrencyRowItem = (props) => {
+export const CryptoRowItem = (props) => {
   /* --- ternary operator: industues  --- */
 	const industries = props.data.industries ?
 	  props.data.industries.map((industry, i) => {

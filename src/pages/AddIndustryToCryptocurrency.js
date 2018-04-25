@@ -3,11 +3,11 @@ import axios from 'axios'
 import Select from 'react-select'
 import cookie from 'react-cookies' 
 import 'react-select/dist/react-select.css'
-import ErrorsList from '../components/ErrorsList'
+import {ErrorsList} from '../components/ErrorsList'
 import { baseAPI } from '../utils'
 
 
-class AddIndustryToCryptocurrency extends Component{
+export class AddIndustryToCryptocurrency extends Component{
 
 	constructor(props) {
 		super(props)
@@ -205,6 +205,3 @@ class AddIndustryToCryptocurrency extends Component{
 		)
 	}
 }
-
-
-export default AddIndustryToCryptocurrency

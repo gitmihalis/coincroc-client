@@ -1,13 +1,11 @@
 import React, { Component } from 'react'
 import axios from 'axios'
-import CryptoTableMenu from '../components/CryptoTableMenu'
-import CryptocurrencyRowItem from '../components/CryptocurrencyRowItem'
+import { CryptoTableMenu, CryptoRowItem} from '../components/CryptoTable'
 import { baseAPI } from '../utils'
 
 const SKIP_AMOUNT = 50
 
-export default class Cryptocurrencies extends Component{
-
+export class Cryptocurrencies extends Component {
 	constructor(){
 		super()
 		this.state = {
@@ -33,8 +31,8 @@ export default class Cryptocurrencies extends Component{
 	}
 
 	fetchCryptoData = () => {
-		return axios.get(`${baseAPI}/cryptocurrencies`)
-		.then( (res) => {
+		axios.get(`${baseAPI}/cryptocurrencies`)
+		.then(res => {
 			const industryElements = {}
 			const data = res.data
 			// stip the industries from the crptocurrencies
@@ -153,7 +151,7 @@ export default class Cryptocurrencies extends Component{
 	render(){
 		const cryptoTableData = this.state.cryptoTableData || []
 		const rowItems = cryptoTableData.map((crypto) => {
-			return (<CryptocurrencyRowItem 
+			return (<CryptoRowItem 
 							 data={crypto}
 							 key={crypto.id} />)
 		})
@@ -193,5 +191,4 @@ export default class Cryptocurrencies extends Component{
 			</div>
 		)
 	}
-
 }

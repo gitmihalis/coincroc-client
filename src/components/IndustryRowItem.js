@@ -1,7 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { $round, posNegStyle } from '../utils'
-import './css/cryptocurrency.css'
 
 /* 
 must return:
@@ -11,7 +10,7 @@ must return:
   </tr> 
  */
 
-const IndustryRowItem = (props) => {
+export const IndustryRowItem = (props) => {
 
   return (
   <tr className="crypto-row"> 
@@ -34,8 +33,6 @@ const IndustryRowItem = (props) => {
   </tr>
   )
 }
-
-export default IndustryRowItem
 
 
 

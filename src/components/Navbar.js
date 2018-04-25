@@ -1,9 +1,8 @@
 import React from 'react'
 import { BrowserRouter as Router, Link } from 'react-router-dom'
-import './css/navbar.css'
 import cookie from 'react-cookies' 
 
-export default function Navbar (props) {
+export function Navbar (props) {
 
   const accessToken = cookie.load('access_token')
 

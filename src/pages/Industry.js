@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import axios from 'axios'
-import IndustryTableMenu from '../components/IndustryTableMenu'
-import IndustryRowItem from '../components/IndustryRowItem'
+import {IndustryTableMenu} from '../components/IndustryTableMenu'
+import {IndustryRowItem} from '../components/IndustryRowItem'
 import { baseAPI } from '../utils'
 
 
-export default class Industry extends Component{
+export class Industry extends Component{
 
 	constructor(){
 		super()
@@ -120,7 +120,5 @@ export default class Industry extends Component{
 					</table>
 			</div>
 		)
-
 	}
-
 }

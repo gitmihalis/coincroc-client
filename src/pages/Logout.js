@@ -11,7 +11,7 @@ const onLogout = () => {
   window.location.href = '/'
 }
 
-const Logout = (props) => {
+export const Logout = (props) => {
 	axios.post(url)
 		.then(res => {
 			console.log('successfuly logged out: ', res)
@@ -30,5 +30,3 @@ const Logout = (props) => {
 		</div>
 		)
 }
-
-export default Logout
