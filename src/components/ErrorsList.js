@@ -1,4 +1,5 @@
 import React from 'react'
+import propTypes from 'prop-types'
 
 export const ErrorsList = ({errors}) => {
   return (
@@ -7,8 +8,8 @@ export const ErrorsList = ({errors}) => {
       if(errors[fieldName].length > 0){
         return (
           <div>
-          <p key={i}>{errors[fieldName]}</p>
-          <br/>
+            <p key={i}>{errors[fieldName]}</p>
+            <br/>
           </div>
         )        
       } else {
@@ -18,3 +19,14 @@ export const ErrorsList = ({errors}) => {
   </div>
   )
 }
+
+// error:
+// {…}
+// code:
+// "LOGIN_FAILED"
+// message:
+// "login failed"
+// name:
+// "Error"
+// statusCode:
+// 401

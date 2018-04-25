@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import cookie from 'react-cookies'
-import {ErrorsList} from '../components/ErrorsList'
+import {Error} from '../components/Error'
 import { baseAPI } from '../utils'
 
 export class Login extends Component {
@@ -12,12 +12,19 @@ export class Login extends Component {
 			password: '',
 			accessToken: '',
 			errors: '',
+			errorMessage: '',
 		}
 	}
 
   componentWillMount = () => {
     this.setState({ accessToken: cookie.load('access_token')})
-  }	
+	}	
+	
+	clearError = () => {
+		this.setState({
+			errorMessage: ''
+		})
+	}
 
   handleInputChange = (e) => {
     const target = e.target
@@ -27,7 +34,14 @@ export class Login extends Component {
     this.setState({
       [name]: value
     })
-  }	
+	}
+	
+	handleEmptySubmit = (e) => {
+		e.preventDefault()
+		this.setState({
+			errorMessage: 'Please enter an email and password.'
+		})
+	}
 
   handleSubmit = (e) => {
 		e.preventDefault()
@@ -54,7 +68,7 @@ export class Login extends Component {
 		.catch(err => {
 			const response = err.response
 			this.setState({errors: response}, () => {
-				console.error(this.state.errors.data.error.message)
+				console.error(this.state.errors.data)
 			})
 		})
  }
@@ -67,9 +81,8 @@ export class Login extends Component {
 
 
 	render(){
-
-		console.log("BASE API == ", baseAPI);
-		
+		const sumbitHandler = (this.state.email && this.state.password ) ?
+			this.handleSubmit : this.handleEmptySubmit
 		return (
 		<div className="mui-container">
 			<h1>Login</h1>
@@ -91,10 +104,11 @@ export class Login extends Component {
 			  </div>
 			  <button type="submit" 
 			  				className="mui-btn mui-btn--raised"
-			  				onClick={this.handleSubmit}
+			  				onClick={sumbitHandler}
 			  >Submit</button>
 		  </form>
-		  <ErrorsList errors={this.state.errors} />
+			{(this.state.errorMessage) ? <Error msg={this.state.errorMessage} clearMsg={this.clearError}/>: ''}
+
 		</div>)
 	}
 }
