@@ -16,11 +16,15 @@ export default class Cryptocurrency extends Component{
 	}
 
 	componentDidMount = () => {
-		this.getCryptocurrency()
-	}
-
-	componentWillMount = () => {
-		this.getTickerData('USD')
+		this.getTickerData('CAD')
+		.then(res => {
+			const data = res.data
+			this.setState({ price: data }, () => console.log(this.state))
+    })
+    .then(() => {
+			this.getCryptocurrency()
+    })		
+    .catch(err => { console.error(err)})
 	}
 
 	getCryptocurrency = () => {
@@ -34,7 +38,6 @@ export default class Cryptocurrency extends Component{
 			console.log(`crypto currency got res : ${JSON.stringify(res)}`)
 			this.setState({ cryptocurrency: data})
     })
-		.catch( err => console.error(err))
 	}
 
 
@@ -43,12 +46,6 @@ export default class Cryptocurrency extends Component{
 	getTickerData = (fiatSym) => {
 		const symbol = this.props.match.params.symbol
 		return axios.get(`https://min-api.cryptocompare.com/data/price?fsym=${symbol}&tsyms=${fiatSym}`)
-		.then(res => {
-			const data = res.data
-			this.setState({ price: data }, () => console.log(this.state))
-    })
-		.catch( err => console.error(err))
-
 	}
 
 	render = () => {

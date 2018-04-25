@@ -14,8 +14,9 @@
     "react-select": "^1.2.1"
   },
   "scripts": {
-    "start": "PORT=3001 react-scripts start",
-    "build": "react-scripts build && cp -r ./build/* ../client/",
+    "prod": "REACT_APP_PROD=true react-scripts start",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   }

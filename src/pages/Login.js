@@ -68,6 +68,9 @@ export default class Login extends Component {
 
 
 	render(){
+
+		console.log("BASE API == ", baseAPI);
+		
 		return (
 		<div className="mui-container">
 			<h1>Login</h1>

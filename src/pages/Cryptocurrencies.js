@@ -8,8 +8,8 @@ const SKIP_AMOUNT = 50
 
 export default class Cryptocurrencies extends Component{
 
-	constructor(props){
-		super(props)
+	constructor(){
+		super()
 		this.state = {
 			paginate: {
 				start: 0,
@@ -28,14 +28,8 @@ export default class Cryptocurrencies extends Component{
 		}
 	}
 
-	componentWillMount = () => {
+	componentDidMount() {
 		this.fetchCryptoData()
-		.then((industryElements) => {
-			this.fetchTickerData(industryElements)
-		})	
-		.catch(err => {
-			throw err
-		})	
 	}
 
 	fetchCryptoData = () => {
@@ -53,6 +47,10 @@ export default class Cryptocurrencies extends Component{
 			})
 			return industryElements
 		})
+		.then((industryElements) => {
+			this.fetchtickerData(industryElements)
+		})
+		.catch((err) => console.error(err));
 	}
 
 	/*
@@ -74,7 +72,10 @@ export default class Cryptocurrencies extends Component{
 				this.setState({ 
 					tickerData: data,
 					cryptoTableData: mergedCryptos 
-				}, () => { console.log('finished fetchTickerData()')})
+				}, () => { 
+					console.log('finished fetchTickerData()')
+					this.forceUpdate()
+				})
       })
 	}
 
