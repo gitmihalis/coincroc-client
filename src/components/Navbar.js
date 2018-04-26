@@ -1,5 +1,5 @@
 import React from 'react'
-import { BrowserRouter as Router, Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import cookie from 'react-cookies' 
 
 export function Navbar (props) {
@@ -14,7 +14,6 @@ export function Navbar (props) {
           <img src="http://res.cloudinary.com/dattofkud/image/upload/v1524096719/cryptocat/cryptocroc/coincroc-brand.png"
                alt="coincroc-brandb" />
           </h1>
-          <Router>
             <ul className='links'>
               <li><Link to="/">Cryptocurrencies</Link></li>
               <li><Link to="/industries">Industries</Link></li>
@@ -24,7 +23,6 @@ export function Navbar (props) {
               }
               <li><Link to="/about">About</Link></li>
             </ul>
-          </Router>
           <button>MENU</button>
           <ul className='hidden-links hidden'></ul>
         </nav>
