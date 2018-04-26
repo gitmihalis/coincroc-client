@@ -1,18 +1,14 @@
 import React, { Component } from 'react'
-import axios from 'axios'
 import { CryptoTableMenu, CryptoRowItem} from '../components/CryptoTable'
-import { baseAPI } from '../utils'
-
-const SKIP_AMOUNT = 30
+import { loadCryptos, loadTickerData, parseIndustries } from '../cryptocoincService'
 
 export class Cryptocurrencies extends Component {
 		state = {
+			SKIP_AMOUNT: 30,
 			paginate: {
 				start: 0,
 				limit: 0
 			},
-			cryptoData: '',
-			tickerData: '',
 			cryptoTableData: '',
 			industries: '',
 			tableSortDirection: {
@@ -24,57 +20,25 @@ export class Cryptocurrencies extends Component {
 		}
 
 	componentDidMount() {
-		this.fetchCryptoData()
-	}
-
-	fetchCryptoData = () => {
-		axios.get(`${baseAPI}/cryptocurrencies`)
-		.then(res => {
-			const industryElements = {}
-			const data = res.data
-			// stip the industries from the crptocurrencies
-			data.forEach((crypto) => {
-				if (crypto.industries) industryElements[crypto.symbol] = crypto.industries
-			})			 
-			this.setState({
-				industries: industryElements,
-				cryptoData: data
-			})
-			return industryElements
-		})
-		.then((industryElements) => {
-			this.fetchTickerData(industryElements)
-		})
-		.catch((err) => console.error(err));
-	}
-
-	/*
-	fetchtickerData - Appneds the industries from DS to the API data and sets the state
-	with the merged data.  
-	*/
-	fetchTickerData = (industryElements, skip=0, limit=SKIP_AMOUNT) => { 
-		console.log(`https://api.coinmarketcap.com/v1/ticker/?start=${skip}&limit=${limit}`)
-		return axios.get(`https://api.coinmarketcap.com/v1/ticker/?start=${skip}&limit=${limit}`)
+		loadCryptos()
 			.then(res => {
-				const data = res.data
-
-				let mergedCryptos = data.map((crypto, i) => {
-					if (industryElements[crypto.symbol]) {
-						crypto['industries'] = industryElements[crypto.symbol]
-					}
-					return crypto
-				}) 
-				this.setState({ 
-					tickerData: data,
-					cryptoTableData: mergedCryptos 
-				}, () => { 
-					console.log('finished fetchTickerData()')
-					this.forceUpdate()
-				})
-      })
+				return parseIndustries(res.data)
+			})
+			.then(industryEls => {
+				const industries = industryEls
+				this.setState({industries})
+				return industries
+			})
+			.then(industries => {
+				return loadTickerData(industries)
+			})
+			.then(data => {
+				this.setState({cryptoTableData: data})
+			})
 	}
 
 	sortNumeric = (key) => {
+		if (!this.cryptoTableData) return
 		const tableSortDirection = this.state.tableSortDirection
 		const cryptoTableData = this.state.cryptoTableData
 
@@ -93,7 +57,7 @@ export class Cryptocurrencies extends Component {
 	}
 
 	sortAlpha = (key) => {
-		console.log('alphasort( ', key)
+		if (!this.cryptoTableData) return		
 		const tableSortDirection = this.state.tableSortDirection
 		const cryptoTableData = this.state.cryptoTableData
 		this.setState({
@@ -112,38 +76,22 @@ export class Cryptocurrencies extends Component {
 		})
 	}
 
-	handlePageNext = (e) => {
-		console.log('handle next page')
-		// which page are we on?
+	handlePaginate = (isPrev) => {
 		const currentStart= this.state.paginate.start
+		const newStart = (isPrev) ?
+			currentStart - this.state.SKIP_AMOUNT : currentStart + this.state.SKIP_AMOUNT
 		const industries = this.state.industries
-		const newStart = currentStart + SKIP_AMOUNT
-		this.fetchTickerData(industries, newStart)
-		this.setState({
-			paginate: {
-				start: newStart
-			}
-		}, console.log(this.state))
-		document.documentElement.scrollTop = 0
+
+		loadTickerData(industries, newStart)
+			.then(pageSet => {
+				this.setState({
+					cryptoTableData: pageSet,
+					paginate: {
+						start: newStart
+					}
+				},() => document.documentElement.scrollTop = 0)
+			})
 	}
-	handlePagePrev = (e) => {
-		console.log('handle prev page')
-		// which page are we on?
-		const currentStart= this.state.paginate.start
-		const industries = this.state.industries
-		const newStart = (currentStart - SKIP_AMOUNT < 0) ? 0 : currentStart - SKIP_AMOUNT
-		this.fetchTickerData(industries, newStart)
-		this.setState({
-			paginate: {
-				start: newStart
-			}
-		}, console.log(this.state))
-		document.documentElement.scrollTop = 0
-	}	
-
-
-
-
 
 	render(){
 		const cryptoTableData = this.state.cryptoTableData || []
@@ -168,20 +116,20 @@ export class Cryptocurrencies extends Component {
 				<div className="button-group">
 				<button 
 				className="mui-btn mui-btn--raised mui-col-sm-4"
-				onClick={this.handlePagePrev}
+				onClick={() => this.handlePaginate(true)}
 				>Prev</button>
 
 
 				<button 
 				className="mui-btn mui-btn--raised mui-col-sm-4"
 				onClick={() => { 
-					this.fetchTickerData(this.state.industries, 0, 0) 
+					this.loadTickerData(this.state.industries, 0, 0) 
 					document.documentElement.scrollTop = 0
 				}}>All</button>
 
 				<button 
 				className="mui-btn mui-btn--raised mui-col-sm-4"
-				onClick={this.handlePageNext}
+				onClick={() => this.handlePaginate()}
 				>Next</button>				
 				
 				</div> 

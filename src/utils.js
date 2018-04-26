@@ -1,6 +1,4 @@
-'use strict';
-
-const round = (number, precision) => {
+export const round = (number, precision) => {
   const shift = (number, precision, reverseShift) => {
     if (reverseShift) {
       precision = -precision;
@@ -12,9 +10,9 @@ const round = (number, precision) => {
     );
   };
   return shift(Math.round(shift(number, precision, false)), precision, true);
-};
+}
 
-const $round = (price) => {
+export const $round = (price) => {
   if (!price && typeof Number(price) !== 'number')
     throw new Error('no price given');
   if (price > Math.pow(10, 9))
@@ -27,9 +25,9 @@ const $round = (price) => {
     return round(price, 3);
 
   return round(price, 2);
-};
-
-const posNegStyle = (value) => {
+}
+/* Colorize the numeric value for positive and negative */
+export const posNegStyle = (value) => {
   if (!value) return {};
   const number = Number(value.replace(/[^0-9.-]+/g, ''));
   const style = {};
@@ -37,13 +35,9 @@ const posNegStyle = (value) => {
   if (number > 0) style.color = '#3ae374';
   if (number < 0) style.color = '#ff3838';
   return style;
-};
+}
 
+export const baseAPI = "http://localhost:3000/api"
 // const baseAPI = "https://cryptocat-rjirulkivi.now.sh/api"
-const baseAPI = "http://localhost:3000/api"
-module.exports = {
-  $round,
-  round,
-  posNegStyle,
-  baseAPI: baseAPI,
-};
+
+
