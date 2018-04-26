@@ -20,6 +20,13 @@ td.industry ul {
 }
 
 
+td, th {
+    max-width: 100px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
 /* Cryptoccurency Detail */
 ul.industry-list {
 	display: block;
