@@ -14,8 +14,8 @@ export const CryptoTableMenu = props => (
           Symbol
         </a>
       </th>
-    	<th className="price-usd">
-  			<a onClick={() => props.sortNumeric('price_usd')}>
+    	<th className="price-cad">
+  			<a onClick={() => props.sortNumeric('price_cad')}>
   				Price
   			</a>
     	</th>		    

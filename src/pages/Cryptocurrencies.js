@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { CryptoTableMenu, CryptoRowItem} from '../components/CryptoTable'
 import { loadCryptos, loadTickerData, parseIndustries } from '../cryptocoincService'
+import { parse } from 'path';
 
 export class Cryptocurrencies extends Component {
 		state = {
@@ -9,10 +10,12 @@ export class Cryptocurrencies extends Component {
 				start: 0,
 				limit: 0
 			},
+			allCrypto: '',
 			cryptoTableData: '',
 			industries: '',
+			industryMap: '',
 			tableSortDirection: {
-				'price_usd': '',
+				'price_cad': '',
 				'name': '',
 				'symbol': '',
 				'percent_change_24h': ''
@@ -22,15 +25,16 @@ export class Cryptocurrencies extends Component {
 	componentDidMount() {
 		loadCryptos()
 			.then(res => {
-				return parseIndustries(res.data)
+				const allCrypto = res.data
+				const industryMap = parseIndustries(allCrypto)
+				this.setState({
+					allCrypto,
+					industryMap
+				})
+				return industryMap
 			})
-			.then(industryEls => {
-				const industries = industryEls
-				this.setState({industries})
-				return industries
-			})
-			.then(industries => {
-				return loadTickerData(industries)
+			.then(industryMap => {
+				return loadTickerData(industryMap)
 			})
 			.then(data => {
 				this.setState({cryptoTableData: data})
@@ -123,8 +127,15 @@ export class Cryptocurrencies extends Component {
 				<button 
 				className="mui-btn mui-btn--raised mui-col-sm-4"
 				onClick={() => { 
-					this.loadTickerData(this.state.industries, 0, 0) 
-					document.documentElement.scrollTop = 0
+					loadTickerData(this.state.industryMap, 0, 0) 
+						.then(pageData => {
+							this.setState({
+								cryptoTableData: pageData,
+								paginate: {
+									start: 0
+								}
+							}, () => document.documentElement.scrollTop = 0)
+						})
 				}}>All</button>
 
 				<button 

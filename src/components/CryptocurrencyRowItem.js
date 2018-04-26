@@ -26,8 +26,8 @@ export const CryptocurrencyRowItem = (props) => {
     <td className="currency-sybmbol">
 	    <span>{props.data.symbol}</span>
     </td>
-  	<td className="price-usd">
-  		<span>${$round(props.data['price_usd'])}</span>
+  	<td className="price-cad">
+  		<span>${$round(props.data['price_cad'])}</span>
   	</td>		    
   	<td className="percent-change" >
   		<span style={posNegStyle(props.data['percent_change_24h'])}>

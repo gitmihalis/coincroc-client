@@ -1,5 +1,7 @@
 import axios from 'axios'
 import { baseAPI } from './utils'
+
+const FIAT = 'CAD'
 /* ---------------------------------------------------------------------------------
 fetch the ticker data from coinmarketcap.com, then:
 Merge the set with coincroc's set */
@@ -11,7 +13,7 @@ export const loadTickerData = (industryElements, skip=0, limit=30) => {
     // headers: {
     //   'Access-Control-Allow-Origin': '*',
     // },
-    url: `https://api.coinmarketcap.com/v1/ticker/?start=${skip}&limit=${limit}`,
+    url: `https://api.coinmarketcap.com/v1/ticker/?convert=${FIAT}&start=${skip}&limit=${limit}`,
   } 
   return axios.get(options.url)
     .then(res => {

@@ -15,7 +15,7 @@ export class Industry extends Component{
 			tickerData: '',
 			industries: '',
 			tableSortDirection: {
-				'price_usd': '',
+				'price_cad': '',
 				'name': '',
 				'symbol': '',
 				'percent_change_24h': ''
