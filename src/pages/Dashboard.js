@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import axios from 'axios'
 import Select from 'react-select'
 import cookie from 'react-cookies' 
-import { loadIndustries, createIndustry } from '../services/industryService'
+import { loadIndustries, createIndustry, destroyIndustry } from '../services/industryService'
 import { loadCryptos } from '../cryptocoincService'
 import { Error } from '../components/Error'
 import { Notice } from '../components/Notice'
@@ -21,7 +21,7 @@ export class Dashboard extends Component{
 				accessToken: '',
 				errorMessage: '',
 				message: '',
-				industryInput: '',
+				newIndustry: '',
 			}
 		}
 	componentWillMount() {
@@ -152,18 +152,18 @@ export class Dashboard extends Component{
 
 	handleIndustryInputChange = (e) => {
 		const value = e.target.value
-		const industryName = value
-		this.setState({industryInput: industryName})
+		const newIndustry = value
+		this.setState({newIndustry})
 	}
 
 	onCreateIndustry = (e) => {
 		e.preventDefault()
-		if (this.state.industryInput) {
+		if (!this.state.newIndustry) {
 			this.setState({message: 'Input a new industry first'})
 			return
 		}
 		const newIndustry = {
-			name: this.state.industryInput,
+			name: this.state.newIndustry,
 			depth: 1
 		}
 		createIndustry(newIndustry)
@@ -178,7 +178,19 @@ export class Dashboard extends Component{
 
 	onDestroyIndustry = (e) => {
 		e.preventDefault()
-		const doomedIndustry = this.state.newIndustry
+		if (!this.state.selectedIndustry) {
+			this.setState({errorMessage: 'Selected an industry first'})
+			return
+		}		
+		const doomedIndustry = this.state.selectedIndustry
+		destroyIndustry(doomedIndustry.id)
+			.then(res => {
+				if(res.status === 200) this.setState({message: `Removed ${doomedIndustry.name}`})
+			})
+			.catch(err => {
+				console.log(err)
+				this.setState({errorMessage: err.message})
+			})
 	}
 
 
@@ -187,7 +199,7 @@ export class Dashboard extends Component{
 	render(){
 		const cryptoOptions = this.state.cryptoOptions || []
 		const industryOptions = this.state.industryOptions || []
-
+		console.log(this.state.industryOptions)
 		return(
 		<div className="mui-container">
 				<div className="mui-row">
@@ -235,8 +247,9 @@ export class Dashboard extends Component{
 				<br/>
 				<div className="mui-row">
 					<div className="button-group">
-						<button onClick={this.onUnpair} className="mui-btn alrt mui-col-xs-6">Unpair</button>
-						<button onClick={this.onPair} className="mui-btn mui-col-xs-6">Pair</button>
+						<button onClick={this.onUnpair} className="mui-btn alrt mui-col-xs-4">Unpair</button>
+						<button onClick={this.onPair} className="mui-btn mui-col-xs-4">Pair</button>
+						<button onClick={this.onDestroyIndustry} className="mui-btn mui-col-xs-4">Delete Industry</button>
 					</div>
 				</div>
 				<br/>

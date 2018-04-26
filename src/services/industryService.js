@@ -18,12 +18,11 @@ export const createIndustry = (industry) => {
   })  
 }
 
-export const destroyIndustry = (industry) => {
+export const destroyIndustry = (id) => {
   const accessToken = cookie.load('access_token')
   return axios.request({
-    url: `${baseAPI}/industries`,
-    method: 'post',
-    data: industry,
+    url: `${baseAPI}/industries/${id}`,
+    method: 'delete',
     headers: {Authorization: accessToken},
   })  
 }
