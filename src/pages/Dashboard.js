@@ -2,10 +2,12 @@ import React, { Component } from 'react'
 import axios from 'axios'
 import Select from 'react-select'
 import cookie from 'react-cookies' 
+import { loadIndustries } from '../industryService'
+import { loadCryptos } from '../cryptocoincService'
 import { Error } from '../components/Error'
 import { Notice } from '../components/Notice'
-import 'react-select/dist/react-select.css'
 import { baseAPI } from '../utils'
+import 'react-select/dist/react-select.css'
 
 
 export class Dashboard extends Component{
@@ -24,9 +26,29 @@ export class Dashboard extends Component{
 
 	componentDidMount(){
 		const accessToken = cookie.load('access_token')
-		this.loadCryptocurrencyOptions()
-		this.loadIndustryOptions()
 		this.setState({accessToken})
+
+		loadCryptos()
+			.then(res => {
+				const options = res.data
+				this.setState({ cryptoOptions: options })
+			})
+			.catch(err => {
+				const message = err.message
+				console.error(err)
+				this.setState({errorMessage: message})
+			})					
+
+		loadIndustries(1)
+			.then(res => {
+				const options = res.data
+				this.setState({ industryOptions: options })
+			})
+		.catch(err => {
+			const message = err.message
+			console.error(err)
+			this.setState({errorMessage: message})
+		})
 	}
 
 	clearMsg = () => {
@@ -36,56 +58,16 @@ export class Dashboard extends Component{
 		})
 	}	
 
-	loadIndustryOptions = () => {
-		axios.get(`${baseAPI}/industries?filter[where][depth]=1`)
-		.then(res => {
-			// include depth for embedding on crytocurrency
-			return res.data.map((industry, i) => {
-				return industry
-			})
-    })
-    .then(options => {
-    	this.setState({ industryOptions: options })
-    })
-    .then(_=> console.log(JSON.stringify(this.state)))
-    .catch(err => console.log(err))
-	}
-
-	loadCryptocurrencyOptions = () => {
-		axios.get(`${baseAPI}/cryptocurrencies`)
-		.then(response => {
-			return response.data.map((crypto, i) => {
-				return crypto
-			})
-    })
-    .then(options => {
-    	this.setState({ cryptoOptions: options })
-    })
-    .catch(err => console.log(err))
-	}
 
 	onSelectionChangeCrypto = (selectedValue) => {
-		this.setState({
-			selectedCrypto: selectedValue
-		}, () => {
-				console.log('you selected', selectedValue)
-		})
+		this.setState({selectedCrypto: selectedValue})
 	}
-
-
-
-
 	onSelectionChangeIndustry = (selectedValue) => {
-		this.setState({
-			selectedIndustry: selectedValue
-		}, () => {
-				console.log('you selected', selectedValue)
-		})
+		this.setState({selectedIndustry: selectedValue})
 	}
 
 
-
-
+	
 	onPair = () => {
 		const { selectedIndustry, selectedCrypto } = this.state
 		const existingIndustries = selectedCrypto.industries || []
