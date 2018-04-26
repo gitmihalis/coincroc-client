@@ -42,7 +42,7 @@ export class Cryptocurrencies extends Component {
 	}
 
 	sortNumeric = (key) => {
-		if (!this.cryptoTableData) return
+		if (!this.state.cryptoTableData) return
 		const tableSortDirection = this.state.tableSortDirection
 		const cryptoTableData = this.state.cryptoTableData
 
@@ -61,7 +61,7 @@ export class Cryptocurrencies extends Component {
 	}
 
 	sortAlpha = (key) => {
-		if (!this.cryptoTableData) return		
+		if (!this.state.cryptoTableData) return		
 		const tableSortDirection = this.state.tableSortDirection
 		const cryptoTableData = this.state.cryptoTableData
 		this.setState({
