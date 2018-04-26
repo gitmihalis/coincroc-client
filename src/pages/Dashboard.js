@@ -2,11 +2,13 @@ import React, { Component } from 'react'
 import axios from 'axios'
 import Select from 'react-select'
 import cookie from 'react-cookies' 
+import { Error } from '../components/Error'
+import { Notice } from '../components/Notice'
 import 'react-select/dist/react-select.css'
 import { baseAPI } from '../utils'
 
 
-export class AddIndustryToCryptocurrency extends Component{
+export class Dashboard extends Component{
 	constructor(props){
 		super(props)
 		this.state = {
@@ -15,22 +17,30 @@ export class AddIndustryToCryptocurrency extends Component{
 				selectedCrypto: '',
 				selectedIndustry: '',
 				accessToken: '',
-				errors: ''
+				errorMessage: '',
+				message: '',
 			}
 		}
 
-	componentWillMount(){
+	componentDidMount(){
 		const accessToken = cookie.load('access_token')
 		this.loadCryptocurrencyOptions()
 		this.loadIndustryOptions()
 		this.setState({accessToken})
 	}
 
+	clearMsg = () => {
+		this.setState({
+			errorMessage: '',
+			message: '',
+		})
+	}	
+
 	loadIndustryOptions = () => {
 		axios.get(`${baseAPI}/industries?filter[where][depth]=1`)
-		.then(response => {
+		.then(res => {
 			// include depth for embedding on crytocurrency
-			return response.data.map((industry, i) => {
+			return res.data.map((industry, i) => {
 				return industry
 			})
     })
@@ -51,7 +61,6 @@ export class AddIndustryToCryptocurrency extends Component{
     .then(options => {
     	this.setState({ cryptoOptions: options })
     })
-    .then(_=> console.log(JSON.stringify(this.state)))
     .catch(err => console.log(err))
 	}
 
@@ -63,6 +72,9 @@ export class AddIndustryToCryptocurrency extends Component{
 		})
 	}
 
+
+
+
 	onSelectionChangeIndustry = (selectedValue) => {
 		this.setState({
 			selectedIndustry: selectedValue
@@ -70,6 +82,9 @@ export class AddIndustryToCryptocurrency extends Component{
 				console.log('you selected', selectedValue)
 		})
 	}
+
+
+
 
 	onPair = () => {
 		const { selectedIndustry, selectedCrypto } = this.state
@@ -90,21 +105,22 @@ export class AddIndustryToCryptocurrency extends Component{
 			headers: {Authorization: this.state.accessToken}
 		})
 		.then(res => {
-			this.props.history.push('/')
+			if ( res.status === 200) this.setState({message: res.statusText})
 		})
 		.catch(err => {
-			const response = err.response
-			this.setState({errors: response}, () => {
-				console.error(this.state.errors)
-			})
+			const message = err.response.data.error.message
+			this.setState({errorMessage: message}, 
+			() => console.error(err.response.data))
 		})
 	}	
 
-	onUnpair = () =>{
+
+
+
+	onUnpair = () => {
 		const { selectedIndustry, selectedCrypto } = this.state
 		const existingIndustries = selectedCrypto.industries || []
-		console.log(`onUnpair, existingIndustries inital value: ${existingIndustries}`)
-		for( let i = 0; i < existingIndustries.length; i++) {
+		for (let i = 0; i < existingIndustries.length; i++) {
 			if (existingIndustries[i].id === selectedIndustry.id) {
 				console.log('matched ', existingIndustries[i])
 				existingIndustries.splice(i, 1)
@@ -113,7 +129,6 @@ export class AddIndustryToCryptocurrency extends Component{
 		const patchData = {
 			industries: existingIndustries
 		}
-		console.log(`onUnpair, existingIndustries post value: ${existingIndustries}`)
 		axios.request({
 			url: `${baseAPI}/cryptocurrencies/${selectedCrypto.id}`,
 			method: 'patch',
@@ -121,15 +136,17 @@ export class AddIndustryToCryptocurrency extends Component{
 			headers: {Authorization: this.state.accessToken}
 		})
 		.then(res => {
-			this.props.history.push('/')
+			if ( res.status === 200) this.setState({message: res.statusText})
 		})
 		.catch(err => {
-			const response = err.response
-			this.setState({errors: response}, () => {
-				console.error(this.state.errors.data.error.message)
-			})
+			const message = err.response.data.error.message
+			this.setState({errorMessage: message}, 
+			() => console.error(err.response.data))
 		})
 	}	
+
+
+
 
 	scrape = () => {
 		axios.request({
@@ -141,12 +158,14 @@ export class AddIndustryToCryptocurrency extends Component{
 			alert('scrapping')
 		})
 		.catch(err => {
-			const response = err.response
-			this.setState({errors: response}, () => {
-				console.error(this.state.errors.data.error.message)
-			})
+			const message = err.response.data.error.message
+			this.setState({errorMessage: message}, 
+			() => console.error(err.response.data))
 		})
 	}
+
+
+
 
 
 	render(){
@@ -195,6 +214,8 @@ export class AddIndustryToCryptocurrency extends Component{
 						<button onClick={this.scrape} className="mui-btn mui-col-xs-12">SCRAPE</button>
 					</div>
 				</div>
+				{this.state.errorMessage && <Error msg={this.state.errorMessage} close={this.clearMsg}/>}
+				{this.state.message && <Notice msg={this.state.message} close={this.clearMsg}/>}
 		</div>
 		)
 	}

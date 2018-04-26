@@ -1,5 +1,5 @@
 import './navbar.css'
 import './cryptocurrency.css'
-import './errors.css'
+import './notifications.css'
 import './footer.css'
 import './forms.css'

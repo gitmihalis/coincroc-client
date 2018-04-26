@@ -73,7 +73,7 @@ export class Login extends Component {
  onLogin = (accessToken) => {
   this.setState({ accessToken })
   cookie.save('access_token', accessToken, { path: '/' })
-  window.location.href = '/industry-cryptocurrency'
+  window.location.href = '/dashboard'
 }
 
 

@@ -1,0 +1,48 @@
+#error-msg > div {
+	z-index: 100;
+	position: absolute;
+	top: 25%;
+	left: 5%;
+	right: 5%;
+}
+
+#error-msg > div p {
+	color: #ff3838;
+}
+
+#error-msg:before {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	background: rgba(0,0,0,.8);
+	height: 100vh;
+	width: 100vw;
+}
+
+
+#notice-msg > div {
+	z-index: 100;
+	position: absolute;
+	top: 25%;
+	left: 5%;
+	right: 5%;
+}
+
+#notice-msg > div p {
+	color: rgba(81, 255, 0, 0.973);
+	text-decoration: underline;
+	text-decoration-color: #fff;
+	font-size: 2em;
+
+}
+#notice-msg:before {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	background: rgba(0, 0, 0, 0.8);
+	height: 100vh;
+	width: 100vw;
+}
+
