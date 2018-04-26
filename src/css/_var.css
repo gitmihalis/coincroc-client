@@ -1,0 +1,13 @@
+:root {
+    --winter-green:rgba(50, 255, 126,1.0);
+    --weird-green: rgba(58, 227, 116,1.0);
+    --electric-blue: rgba(126, 255, 245,1.0);
+    --neon-blue: rgba(24, 220, 255,1.0);
+    --light-red: rgba(255, 77, 77,1.0);
+    --error-red: rgba(255, 56, 56,1.0);
+    --shadowed-steel: rgba(75, 75, 75,1.0);
+    --baltic-black: rgba(61, 61, 61,1.0);
+    --dorn-yellow: rgba(255, 242, 0,1.0);
+    --unmellow-yellow: rgba(255, 250, 101,1.0);
+    --hairspray-grey: rgba(149, 175, 192,1.0);
+  }

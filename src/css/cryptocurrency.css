@@ -34,8 +34,8 @@ ul.industry-list {
 }
 
 li.industry a {
-	background-color: white;
-	color: #343434;
+	background-color: #fff;
+	color: var(--baltic-black);
 	padding: .5em 1.3em;
 }
 

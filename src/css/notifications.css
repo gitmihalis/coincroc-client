@@ -7,7 +7,7 @@
 }
 
 #error-msg > div p {
-	color: #ff3838;
+	color: var(--error-red);
 }
 
 #error-msg:before {
@@ -30,7 +30,7 @@
 }
 
 #notice-msg > div p {
-	color: rgba(81, 255, 0, 0.973);
+	color: var(--electric-green);
 	text-decoration: underline;
 	text-decoration-color: #fff;
 	font-size: 2em;

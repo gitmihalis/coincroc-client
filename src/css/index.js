@@ -1,3 +1,4 @@
+import './_var.css'
 import './navbar.css'
 import './cryptocurrency.css'
 import './notifications.css'

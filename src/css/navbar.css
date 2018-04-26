@@ -13,15 +13,6 @@ nav.greedy {
   margin-bottom: 27px;
 }
 
-nav.greedy h1 {
-/*  display: flex;
-  font-size: 1.8em;
-  align-self: stretch;
-  align-items: center;
-  padding: 0 1.5rem;
-  font-weight: bold;*/
-}
-
 nav.greedy img {
   position: absolute;
   top: .5em;
@@ -39,13 +30,13 @@ nav.greedy button {
   border: 0;
   font-weight: bold;
   box-shadow: 2px 2px 2px #000;
-  background: #fff200;
-  color: #404040;
+  background: var(--dorn-yellow);
+  color: var(--shadowed-steel);
 }
 
 nav.greedy button.hidden {
   transition: none;
-  border-right: 0.5rem solid #b6b6b6;
+  border-right: 0.5rem solid var(--shadowed-steel);
   width: 0;
   padding: 0;
   overflow: hidden;
@@ -59,8 +50,8 @@ nav.greedy button::after {
   height: 30px;
   align-items: center;
   justify-content: center;
-  background: #32ff7e;
-  color: #4b4b4b;
+  background: var(--winter-green);
+  color: var(--shadowed-steel);
   border-radius: 50%;
   font-size: 14px;
   line-height: 14px;
@@ -88,7 +79,7 @@ ul.links li {
 }
 
 ul.links li a {
-  color: #7efff5;
+  color: var(--electric-blue);
 }
 
 ul.hidden-links {
@@ -97,18 +88,18 @@ ul.hidden-links {
   list-style: circle;
   position: absolute;
   background: #3d3d3d;
-  box-shadow: 0 0 300px rgba(0,0,0,1);
+  box-shadow: 0 0 300px #000;
   right: 0;
   top: 100%;
 }
 
 ul.hidden-links li a {
-  color: #7efff5;
+  color: var(--electric-blue);
   padding-right: 1rem;
 }
 
 ul.hidden-links li a:hover {
-  color: #ddd;
+  color: var(--hairspray-grey)
 }
 
 ul.hidden-links.hidden {

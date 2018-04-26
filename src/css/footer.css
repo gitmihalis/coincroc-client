@@ -3,6 +3,6 @@
 }
 .footer a {
 	color: #fff;
-	text-decoration-color: #18dcff !important;
+	text-decoration-color: var(--electric-blue) !important;
 	text-decoration: underline;
 }

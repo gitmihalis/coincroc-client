@@ -22,8 +22,9 @@ export class Dashboard extends Component{
 				errorMessage: '',
 				message: '',
 				newIndustry: '',
-			}
 		}
+	}
+
 	componentWillMount() {
 				const accessToken = cookie.load('access_token')
 				this.setState({accessToken})
