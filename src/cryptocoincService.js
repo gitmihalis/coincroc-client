@@ -4,15 +4,16 @@ import {baseAPI} from './utils'
 fetch the ticker data from coinmarketcap.com, then:
 Merge the set with coincroc's set */
 export const loadTickerData = (industryElements, skip=0, limit=30) => {
+  /* At the moment, coinmarketcap.com Errors on the preflight CORS check when we submit
+  the options in a requeset... */
   const options = {
-    method: 'GET',
-    headers: {
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Headers': 'Negotiate',
-    },
+    // method: 'GET',
+    // headers: {
+    //   'Access-Control-Allow-Origin': '*',
+    // },
     url: `https://api.coinmarketcap.com/v1/ticker/?start=${skip}&limit=${limit}`,
   } 
-  return axios(options)
+  return axios.get(options.url)
     .then(res => {
       const data = res.data
       return data.map((crypto, i) => {
@@ -27,15 +28,7 @@ export const loadTickerData = (industryElements, skip=0, limit=30) => {
 /* ---------------------------------------------------------------------------------
 Load Cryptocurrencies from the datasource */
 export const loadCryptos = () => {
-  const options = {
-    method: 'GET',
-    headers: {
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Headers': 'Negotiate',
-    },
-    url: `${baseAPI}/cryptocurrencies`,
-  } 
-  return axios(options)
+  return axios.get(`${baseAPI}/cryptocurrencies`)
 }
 
 export const parseIndustries = (cryptoSet) => {

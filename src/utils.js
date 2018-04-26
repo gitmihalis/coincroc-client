@@ -37,7 +37,7 @@ export const posNegStyle = (value) => {
   return style;
 }
 
-export const baseAPI = "http://localhost:3000/api"
-// const baseAPI = "https://cryptocat-rjirulkivi.now.sh/api"
+export const baseAPI = "http://0.0.0.0:3000/api"
+// export const baseAPI = "https://cryptocat-rjirulkivi.now.sh/api"
 
 
