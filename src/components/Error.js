@@ -1,5 +1,4 @@
 import React from 'react'
-import {ErrorsList} from './ErrorsList'
 
 export const Error = (props) => {
 	return (

@@ -1,5 +1,5 @@
 import axios from 'axios'
-import {baseAPI} from './utils'
+import { baseAPI } from './utils'
 /* ---------------------------------------------------------------------------------
 fetch the ticker data from coinmarketcap.com, then:
 Merge the set with coincroc's set */
@@ -31,6 +31,8 @@ export const loadCryptos = () => {
   return axios.get(`${baseAPI}/cryptocurrencies`)
 }
 
+/* ---------------------------------------------------------------------------------
+Parse the industries from our datasource to be placed onto the table data set */
 export const parseIndustries = (cryptoSet) => {
   const industryEls = {}
   for (let crypto of cryptoSet) {
