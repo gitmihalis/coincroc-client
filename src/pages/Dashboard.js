@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import axios from 'axios'
 import Select from 'react-select'
 import cookie from 'react-cookies' 
-import { loadIndustries } from '../industryService'
+import { loadIndustries, createIndustry } from '../services/industryService'
 import { loadCryptos } from '../cryptocoincService'
 import { Error } from '../components/Error'
 import { Notice } from '../components/Notice'
@@ -21,13 +21,14 @@ export class Dashboard extends Component{
 				accessToken: '',
 				errorMessage: '',
 				message: '',
+				industryInput: '',
 			}
 		}
-
+	componentWillMount() {
+				const accessToken = cookie.load('access_token')
+				this.setState({accessToken})
+	}
 	componentDidMount(){
-		const accessToken = cookie.load('access_token')
-		this.setState({accessToken})
-
 		loadCryptos()
 			.then(res => {
 				const options = res.data
@@ -67,7 +68,7 @@ export class Dashboard extends Component{
 	}
 
 
-	
+
 	onPair = () => {
 		const { selectedIndustry, selectedCrypto } = this.state
 		const existingIndustries = selectedCrypto.industries || []
@@ -149,6 +150,39 @@ export class Dashboard extends Component{
 
 
 
+	handleIndustryInputChange = (e) => {
+		const value = e.target.value
+		const industryName = value
+		this.setState({industryInput: industryName})
+	}
+
+	onCreateIndustry = (e) => {
+		e.preventDefault()
+		if (this.state.industryInput) {
+			this.setState({message: 'Input a new industry first'})
+			return
+		}
+		const newIndustry = {
+			name: this.state.industryInput,
+			depth: 1
+		}
+		createIndustry(newIndustry)
+			.then(res => {
+				if (res.status === 200) this.setState({message: 'Industry saved '})
+			})
+			.catch(err => {
+				console.err(err)
+				this.setState({errorMessage: err.message})
+			})
+	}
+
+	onDestroyIndustry = (e) => {
+		e.preventDefault()
+		const doomedIndustry = this.state.newIndustry
+	}
+
+
+
 
 	render(){
 		const cryptoOptions = this.state.cryptoOptions || []
@@ -156,6 +190,20 @@ export class Dashboard extends Component{
 
 		return(
 		<div className="mui-container">
+				<div className="mui-row">
+					<form className="mui-form">
+						<div className="mui-textfield">
+							<div className="mui-textfield">
+								<input name="industry"
+									type="text" 
+									placeholder="New Industry"
+									onChange={this.handleIndustryInputChange} />
+							</div>
+						</div>
+						<button className="mui-btn" onClick={this.onCreateIndustry}>Create</button>
+					</form>
+				</div>
+				<br/>		
 				<div className="mui-row">
 					<div id="select-cryptocurrency" className="mui-col-sm-6">
 						<label>Crypto:
@@ -183,7 +231,8 @@ export class Dashboard extends Component{
 						</label>
 					</div>
 				</div>
-				<br />
+
+				<br/>
 				<div className="mui-row">
 					<div className="button-group">
 						<button onClick={this.onUnpair} className="mui-btn alrt mui-col-xs-6">Unpair</button>
