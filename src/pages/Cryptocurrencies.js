@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { CryptoTableMenu, CryptoRowItem} from '../components/CryptoTable'
-import { Search } from '../components/Search'
 import { loadCryptos, loadTickerData, parseIndustries } from '../services/cryptocurrencyService'
 
 export class Cryptocurrencies extends Component {
@@ -132,12 +131,11 @@ export class Cryptocurrencies extends Component {
 							/>
 						</div>
 						<div className="mui-textfield mui-col-sm-6">
-							<div className="button-group"
->							<button id="show-all"
-							className="mui-btn mui-btn--raised mui-col-sm-4"
-							onClick={() => { 
-								loadTickerData(this.state.industryMap, 0, 0) 
-									.then(pageData => {
+							<div className="button-group">							
+								<button id="show-all"
+								className="mui-btn mui-btn--raised mui-col-sm-4"
+								onClick={() => { 
+									loadTickerData(this.state.industryMap, 0, 0).then(pageData => {
 										this.setState({
 											cryptoTableData: pageData,
 											paginate: {
@@ -145,14 +143,18 @@ export class Cryptocurrencies extends Component {
 											}
 										}, () => document.documentElement.scrollTop = 0)
 									})
-							}}>SHOW All</button>
+								}}>SHOW All</button>
 							</div>
 						</div>						
 					</div>
 				</div>
 				<br/>
+				<div className="mui-row">
+					<div className="mui-col-xs-12">
+						<h4>Showing {filteredCryptos.length} cryptocurrencies</h4>	
+					</div>		
+				</div>
 				<div className="mui-row">	
-					<h5>Showing {cryptoTableData.length} cryptocurrencies</h5>			
 					<table className="mui-table mui-table--bordered" id="table">
 						<CryptoTableMenu sortNumeric={this.sortNumeric} sortAlpha={this.sortAlpha} />
 						<tbody>
