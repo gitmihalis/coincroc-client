@@ -43,17 +43,17 @@ export class Industries extends Component{
     })
 
     return (
-      <div className="container">
-
-        <div className="card">
-          <div className="card-divider">
-          <h5>Showing {coinCount} industries</h5>
-          </div>
-          <div className="">
-            {industryItems}
-          </div>
+      <div className="mui-container">
+        <div className="mui-row industries">
+          <div className="card">
+            <div className="card-divider">
+            <h5>Showing {coinCount} industries</h5>
+            </div>
+            <div className="">
+              {industryItems}
+            </div>
+          </div>    
         </div>
-        
       </div>
     )
 

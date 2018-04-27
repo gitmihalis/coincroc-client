@@ -81,31 +81,34 @@ export class Login extends Component {
 		const sumbitHandler = (this.state.email && this.state.password ) ?
 			this.handleSubmit : this.handleEmptySubmit
 		return (
-		<div className="mui-container">
-			<h1>Login</h1>
-			<small>Well... go ahead and login then.</small>
-		
-			<form className="mui-form">
-			  <legend></legend>
-			  <div className="mui-textfield">
-			    <input name="email"
-			    			 type="text" 
-			    			 placeholder="email"
-			    			 onChange={this.handleInputChange} />
-			  </div>
-			  <div className="mui-textfield">
-			    <input name="password"
-			    			 type="password" 
-			    			 placeholder="password"
-			    			 onChange={this.handleInputChange} />
-			  </div>
-			  <button type="submit" 
-			  				className="mui-btn mui-btn--raised"
-			  				onClick={sumbitHandler}
-			  >Submit</button>
-		  </form>
-			{this.state.errorMessage && <Error msg={this.state.errorMessage} clearMsg={this.clearError}/>}
-		</div>)
+			<div className="mui-container">
+				<div className="mui-row login">
+				<h1>Login</h1>
+				<small>Well... go ahead and login then.</small>
+			
+				<form className="mui-form">
+					<legend></legend>
+					<div className="mui-textfield">
+						<input name="email"
+									type="text" 
+									placeholder="email"
+									onChange={this.handleInputChange} />
+					</div>
+					<div className="mui-textfield">
+						<input name="password"
+									type="password" 
+									placeholder="password"
+									onChange={this.handleInputChange} />
+					</div>
+					<button type="submit" 
+									className="mui-btn mui-btn--raised"
+									onClick={sumbitHandler}
+					>Submit</button>
+				</form>
+				{this.state.errorMessage && <Error msg={this.state.errorMessage} clearMsg={this.clearError}/>}
+			</div>
+		</div>
+		)
 	}
 }
 

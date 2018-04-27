@@ -1,4 +1,6 @@
-
+.cryptocurrency h2 > span {
+	color: var(--electric-blue)
+}
 /* Cryptocurrency Table */
 table {
 	table-layout: fixed;
@@ -62,5 +64,7 @@ li.industry a {
 	margin: 1em .3em;
 	display: inline-block;
 }
+
+
 
 

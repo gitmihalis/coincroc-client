@@ -109,15 +109,17 @@ export class Industry extends Component{
 		})
 
 		return (
-			<div>
-				<hr/>
-				<h5>Showing {this.state.tickerData.length} {this.props.match.params.name} cryptocurrencies</h5>
+			<div className="mui-container">
+				<div className="mui-row industry">
+					<hr/>
+					<h5>Showing {this.state.tickerData.length} {this.props.match.params.name} cryptocurrencies</h5>
 					<table className="mui-table mui-table--bordered" id="table">
 						<IndustryTableMenu sortNumeric={this.sortNumeric} sortAlpha={this.sortAlpha} />
 						<tbody>
 						{rowItems}
 						</tbody>
 					</table>
+				</div>
 			</div>
 		)
 	}

@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { baseAPI } from './utils'
+import { baseAPI } from '../utils'
 
 const FIAT = 'CAD'
 /* ---------------------------------------------------------------------------------
@@ -26,13 +26,11 @@ export const loadTickerData = (industryElements, skip=0, limit=30) => {
       })
     })
 }	
-
 /* ---------------------------------------------------------------------------------
 Load Cryptocurrencies from the datasource */
 export const loadCryptos = () => {
   return axios.get(`${baseAPI}/cryptocurrencies`)
 }
-
 /* ---------------------------------------------------------------------------------
 Parse the industries from our datasource to be placed onto the table data set */
 export const parseIndustries = (cryptoSet) => {
@@ -43,4 +41,11 @@ export const parseIndustries = (cryptoSet) => {
   }
   return industryEls
 }	
+/* ---------------------------------------------------------------------------------
+Fetch and return the cryptocurrency details ( desc, etc .... */
+export const loadDetails = (tokenSymbol) => {
+  return axios.get(`${baseAPI}/cryptocurrencies?filter[where][symbol]=${tokenSymbol}`)
+}
+
+
 

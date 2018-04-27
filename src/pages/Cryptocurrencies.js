@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { CryptoTableMenu, CryptoRowItem} from '../components/CryptoTable'
-import { loadCryptos, loadTickerData, parseIndustries } from '../cryptocoincService'
+import { loadCryptos, loadTickerData, parseIndustries } from '../services/cryptocurrencyService'
 
 export class Cryptocurrencies extends Component {
 		state = {
@@ -105,44 +105,46 @@ export class Cryptocurrencies extends Component {
 		})
 
 		return (
-			<div>
-				<h5>Showing {cryptoTableData.length} cryptocurrencies</h5>
+			<div className="mui-container">
+				<div className="mui-row cryptocurrencies">
+					<h5>Showing {cryptoTableData.length} cryptocurrencies</h5>
 
-				<table className="mui-table mui-table--bordered" id="table">
-					<CryptoTableMenu sortNumeric={this.sortNumeric} sortAlpha={this.sortAlpha} />
-					<tbody>
-						{rowItems ? rowItems : 'none'}
-					</tbody>
-				</table>
+					<table className="mui-table mui-table--bordered" id="table">
+						<CryptoTableMenu sortNumeric={this.sortNumeric} sortAlpha={this.sortAlpha} />
+						<tbody>
+							{rowItems ? rowItems : 'none'}
+						</tbody>
+					</table>
 
-				
-				<div className="button-group">
-				<button 
-				className="mui-btn mui-btn--raised mui-col-sm-4"
-				onClick={() => this.handlePaginate(true)}
-				>Prev</button>
+					
+					<div className="button-group">
+					<button 
+					className="mui-btn mui-btn--raised mui-col-sm-4"
+					onClick={() => this.handlePaginate(true)}
+					>Prev</button>
 
 
-				<button 
-				className="mui-btn mui-btn--raised mui-col-sm-4"
-				onClick={() => { 
-					loadTickerData(this.state.industryMap, 0, 0) 
-						.then(pageData => {
-							this.setState({
-								cryptoTableData: pageData,
-								paginate: {
-									start: 0
-								}
-							}, () => document.documentElement.scrollTop = 0)
-						})
-				}}>All</button>
+					<button 
+					className="mui-btn mui-btn--raised mui-col-sm-4"
+					onClick={() => { 
+						loadTickerData(this.state.industryMap, 0, 0) 
+							.then(pageData => {
+								this.setState({
+									cryptoTableData: pageData,
+									paginate: {
+										start: 0
+									}
+								}, () => document.documentElement.scrollTop = 0)
+							})
+					}}>All</button>
 
-				<button 
-				className="mui-btn mui-btn--raised mui-col-sm-4"
-				onClick={() => this.handlePaginate()}
-				>Next</button>				
-				
-				</div> 
+					<button 
+					className="mui-btn mui-btn--raised mui-col-sm-4"
+					onClick={() => this.handlePaginate()}
+					>Next</button>				
+					
+					</div> 
+				</div>
 			</div>
 		)
 	}

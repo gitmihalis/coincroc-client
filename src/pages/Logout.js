@@ -24,8 +24,10 @@ export const Logout = (props) => {
 
 	return (
 		<div className="mui-container">
-			<div className="mui--text-center">
-				<p>Your already logged out...</p>
+			<div className="mui-row logout">
+				<div className="mui--text-center">
+					<p>Your already logged out...</p>
+				</div>
 			</div>
 		</div>
 		)

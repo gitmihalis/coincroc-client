@@ -1,8 +1,9 @@
 import React, {Component} from 'react'
 import {Link} from 'react-router-dom'
-import axios from 'axios'
+import {Notice} from '../components/Notice'
 import {Error} from '../components/Error'
-import { baseAPI } from '../utils'
+import {loadDetails} from '../services/cryptocurrencyService'
+import axios from 'axios'
 
 
 export class Cryptocurrency extends Component{
@@ -11,42 +12,37 @@ export class Cryptocurrency extends Component{
 		this.state = {
 			cryptocurrency: '',
 			price: '',
-			defaultImg: 'http://res.cloudinary.com/dattofkud/image/upload/v1523815071/cryptocat/deepsea-anglerfish.jpg'
+			errorMessage: '',
+			message: '',
 		}
 	}
 
 	componentDidMount = () => {
-		this.getTickerData('CAD')
+		this.fetchCurrentPrice('CAD')
 		.then(res => {
 			const data = res.data
-			this.setState({ price: data }, () => console.log(this.state))
-    })
-    .then(() => {
-			this.getCryptocurrency()
-    })		
-    .catch(err => { console.error(err)})
+			this.setState({ price: data, message: 'loading...' })
+		})
+		.catch(err => { 
+			this.setState({errorMessage: err.message})
+		})
+		
+		loadDetails(this.props.match.params.symbol)
+			.then(res => {
+				const details = res.data
+				this.setState({ cryptocurrency: details})
+    	})
+    	.catch(err => { 
+				this.setState({errorMessage: err.message})
+			})
 	}
 
-	getCryptocurrency = () => {
-		const symbol = this.props.match.params.symbol
-		console.log(`getCryptocurrency ( ${symbol} )`)
-		return axios.get(
-			`${baseAPI}/cryptocurrencies?filter[where][symbol]=${symbol}`
-			)
-		.then(res => {
-			const data = res.data
-			console.log(`crypto currency got res : ${JSON.stringify(res)}`)
-			this.setState({ cryptocurrency: data})
-    })
-	}
-
-
-
-
-	getTickerData = (fiatSym) => {
-		const symbol = this.props.match.params.symbol
-		return axios.get(`https://min-api.cryptocompare.com/data/price?fsym=${symbol}&tsyms=${fiatSym}`)
-	}
+	/* ----------------------------------------------------------------------------------
+	Load a single price */
+	fetchCurrentPrice = (fiatSym) => {
+		const tokenSymbol = this.props.match.params.symbol
+		return axios.get(`https://min-api.cryptocompare.com/data/price?fsym=${tokenSymbol}&tsyms=${fiatSym}`)
+	}	
 
 	render = () => {
 		const cryptocurrency = this.state.cryptocurrency ? this.state.cryptocurrency[0] : ''
@@ -66,8 +62,8 @@ export class Cryptocurrency extends Component{
 
 		if (cryptocurrency) { 
 			return(
-			<div className="cryptocurrency mui-container">
-				<div className="mui-row">
+			<div className="mui-container">
+				<div className="mui-row cryptocurrency">
 			    <div className="mui-col-sm-4 mui--text-center">
 			      <img className="coin-avatar" 
 			      		 src={`https://cryptocompare.com${image}`} 
@@ -76,8 +72,8 @@ export class Cryptocurrency extends Component{
 			      <h1>{cryptocurrency.name}</h1>
 		    	</div>
 		    	<div className="mui-col-sm-6 mui--text-center">
-				    <h2>[ {cryptocurrency.symbol} ]</h2>
-	  				<h3 className="left">Price: ${this.state.price.USD}</h3>
+				    <h2>[<span>{cryptocurrency.symbol}</span>]</h2>
+	  				<h3 className="left">Price: ${this.state.price.CAD}</h3>
 	  				<ul className="mui-list--inline industryList">
 							{industryList}
 						</ul>
