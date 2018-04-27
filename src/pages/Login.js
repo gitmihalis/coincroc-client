@@ -12,6 +12,7 @@ export class Login extends Component {
 			password: '',
 			accessToken: '',
 			errorMessage: '',
+			message: '',
 		}
 	}
 
@@ -19,9 +20,10 @@ export class Login extends Component {
     this.setState({ accessToken: cookie.load('access_token')})
 	}	
 	
-	clearError = () => {
+	clearMsg = () => {
 		this.setState({
-			errorMessage: ''
+			errorMessage: '',
+			message: '',
 		})
 	}
 
@@ -73,7 +75,7 @@ export class Login extends Component {
  onLogin = (accessToken) => {
   this.setState({ accessToken })
   cookie.save('access_token', accessToken, { path: '/' })
-  window.location.href = '/dashboard'
+  this.props.history.push('/')
 }
 
 
@@ -105,7 +107,7 @@ export class Login extends Component {
 									onClick={sumbitHandler}
 					>Submit</button>
 				</form>
-				{this.state.errorMessage && <Error msg={this.state.errorMessage} clearMsg={this.clearError}/>}
+				{this.state.errorMessage && <Error msg={this.state.errorMessage} close={this.clearMsg}/>}
 			</div>
 		</div>
 		)

@@ -1,6 +1,6 @@
 import React from 'react'
 
-export const FourOhFour = () => (
+export const FourOhFour = (props) => (
 	<div className="mui-container">
 		<div className="mui-row fourohfour">
 			<h1>404</h1>

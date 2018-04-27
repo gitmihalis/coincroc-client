@@ -1,6 +1,6 @@
 import React from 'react'
 
-export const About = () => (
+export const About = (props) => (
 	<div className="mui-container">
 		<div className="mui-row cryptocurrency">
 			<h1>About</h1>

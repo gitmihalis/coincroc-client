@@ -6,8 +6,8 @@ import { baseAPI } from '../utils'
 
 export class Industries extends Component{
 
-  constructor(){
-    super()
+  constructor(props){
+    super(props)
     this.state = {
       industries: [],
     }

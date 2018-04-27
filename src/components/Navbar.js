@@ -1,12 +1,22 @@
-import React from 'react'
+import React, {Component} from 'react'
 import { Link } from 'react-router-dom'
 import cookie from 'react-cookies' 
 
-export function Navbar (props) {
+export class Navbar extends Component {
+  constructor(props){
+    super(props)
+    this.state = {
+      accessToken: '',
+    }
+  }
 
-  const accessToken = cookie.load('access_token')
+  componentDidMount(){
+    this.setState({
+      accessToken: cookie.load('access_token')
+    })
+  }
 
-	// render(){
+	render(){
 		return (
       <div className="nav-wrapper">
         <nav className='greedy' id="page-top">
@@ -19,12 +29,12 @@ export function Navbar (props) {
               <li><Link to="/industries">Industries</Link></li>
               <li><Link to="/about">About</Link></li>
               {
-                (!!accessToken) ? 
+                (!!this.state.accessToken) ? 
                 <li><Link to="/dashboard">Dashboard</Link></li> :
                 <li><Link to="/login">Login</Link></li>
               } 
               {
-                (!!accessToken) ? 
+                (!!this.state.accessToken) ? 
                 <li><Link to="/logout">Logout</Link></li> :
                 null
               }                              
@@ -33,7 +43,8 @@ export function Navbar (props) {
           <ul className='hidden-links hidden'></ul>
         </nav>
       </div>
-		)
+    )
+  }
 }
 
 
