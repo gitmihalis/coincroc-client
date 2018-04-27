@@ -13,11 +13,11 @@ import { FourOhFour } from '../pages/FourOhFour'
 export const Main = () => (
 		<Switch>
 			<Route exact path="/" component={Cryptocurrencies}/>
-			<Route path="/about" component={About}/>
-			<Route path="/industries" component={Industries}/>
-			<Route path="/login" component={Login}/>
-			<Route path="/logout" component={Logout}/>
-			<Route path="/dashboard" component={Dashboard}/>
+			<Route exact path="/about" component={About}/>
+			<Route exact path="/industries" component={Industries}/>
+			<Route exact path="/login" component={Login}/>
+			<Route exact path="/logout" component={Logout}/>
+			<Route exact path="/dashboard" component={Dashboard}/>
 			<Route path="/industries/:name" component={Industry}/>
 			<Route path="/cryptocurrencies/:symbol" component={Cryptocurrency}/>
 			<Route path="/:anythingelse" component={FourOhFour}/>

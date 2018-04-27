@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { CryptoTableMenu, CryptoRowItem} from '../components/CryptoTable'
 import { loadCryptos, loadTickerData, parseIndustries } from '../cryptocoincService'
-import { parse } from 'path';
 
 export class Cryptocurrencies extends Component {
 		state = {
