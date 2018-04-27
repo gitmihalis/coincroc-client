@@ -1,7 +1,6 @@
-.mui-container form.mui-form input {
+.mui-form input, .mui-form--inline input {
 	color: white;
 	border-bottom: 1px solid var(--unmellow-yellow);
-
 }
 
 ::-webkit-input-placeholder { color: var(--hairspray-grey) !important;} /* Chrome/Opera/Safari */

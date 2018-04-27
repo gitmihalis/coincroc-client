@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { CryptoTableMenu, CryptoRowItem} from '../components/CryptoTable'
+import { Search } from '../components/Search'
 import { loadCryptos, loadTickerData, parseIndustries } from '../services/cryptocurrencyService'
 
 export class Cryptocurrencies extends Component {
@@ -9,6 +10,7 @@ export class Cryptocurrencies extends Component {
 				start: 0,
 				limit: 0
 			},
+			search: '',
 			allCrypto: '',
 			cryptoTableData: '',
 			industries: '',
@@ -96,19 +98,51 @@ export class Cryptocurrencies extends Component {
 			})
 	}
 
+	updateSearch = (e) => {
+		const query = e.target.value.substr(0, 20).toLowerCase()
+		this.setState({
+			search: query
+		})
+		console.log(query)
+	}
+
 	render(){
 		const cryptoTableData = this.state.cryptoTableData || []
-		const rowItems = cryptoTableData.map((crypto) => {
+		const filteredCryptos = cryptoTableData.filter((crypto) => {
+			return (
+				crypto.name.toLowerCase().indexOf(this.state.search) !== -1 ||
+				crypto.symbol.toLowerCase().indexOf(this.state.search) !== -1
+			)
+		})
+		const rowItems = filteredCryptos.map((crypto) => {
 			return (<CryptoRowItem 
 							 data={crypto}
 							 key={crypto.id} />)
 		})
 
 		return (
-			<div className="mui-container">
-				<div className="mui-row cryptocurrencies">
-					<h5>Showing {cryptoTableData.length} cryptocurrencies</h5>
+			<div className="mui-container cryptocurrencies">
+				<div className="mui-row">
+					<div className="mui--text-center">
+						<h5>Showing {cryptoTableData.length} cryptocurrencies</h5>
+					</div>
+				</div>
+				<div className="mui-row">
+					<div className="mui-form--inline">
+						<div className="mui-textfield mui-col-sm-6">
+							<input type="text"
+							value={this.state.query}
+							onChange={this.updateSearch}
+							placeholder="Search"
+							/>
+						</div>
+						<div className="mui-textfield mui-col-sm-6">
 
+						</div>						
+					</div>
+				</div>
+				<br/>
+				<div className="mui-row">	
 					<table className="mui-table mui-table--bordered" id="table">
 						<CryptoTableMenu sortNumeric={this.sortNumeric} sortAlpha={this.sortAlpha} />
 						<tbody>
