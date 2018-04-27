@@ -123,11 +123,6 @@ export class Cryptocurrencies extends Component {
 		return (
 			<div className="mui-container cryptocurrencies">
 				<div className="mui-row">
-					<div className="mui--text-center">
-						<h5>Showing {cryptoTableData.length} cryptocurrencies</h5>
-					</div>
-				</div>
-				<div className="mui-row">
 					<div className="mui-form--inline">
 						<div className="mui-textfield mui-col-sm-6">
 							<input type="text"
@@ -138,7 +133,7 @@ export class Cryptocurrencies extends Component {
 						</div>
 						<div className="mui-textfield mui-col-sm-6">
 							<div className="button-group"
->							<button
+>							<button id="show-all"
 							className="mui-btn mui-btn--raised mui-col-sm-4"
 							onClick={() => { 
 								loadTickerData(this.state.industryMap, 0, 0) 
@@ -157,6 +152,7 @@ export class Cryptocurrencies extends Component {
 				</div>
 				<br/>
 				<div className="mui-row">	
+					<h5>Showing {cryptoTableData.length} cryptocurrencies</h5>			
 					<table className="mui-table mui-table--bordered" id="table">
 						<CryptoTableMenu sortNumeric={this.sortNumeric} sortAlpha={this.sortAlpha} />
 						<tbody>

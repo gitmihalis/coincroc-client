@@ -4,7 +4,7 @@
 }
 
 .mui-form input:focus, .mui-form--inline input:focus {
-	border-bottom: 1px solid var(--winter-green);
+	border-bottom: 2px solid #fff;
 }
 
 ::-webkit-input-placeholder { color: var(--hairspray-grey) !important;} /* Chrome/Opera/Safari */

@@ -55,6 +55,10 @@ img.coin-avatar {
 	  border-radius: 0px !important;
 }
 
+.button-group button {
+	width: 100%;
+}
+
 .button-group {
 	display: flex;
 	justify-content: space-between;
@@ -70,6 +74,11 @@ img.coin-avatar {
 
 .button-group a {
 	background-color: #fff200;
+}
+
+.button-group #show-all {
+	background-color: var(--weird-green);
+	width: 50%;
 }
 
 i.brand-icon {
