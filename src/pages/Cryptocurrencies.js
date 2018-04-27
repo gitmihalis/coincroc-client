@@ -137,7 +137,21 @@ export class Cryptocurrencies extends Component {
 							/>
 						</div>
 						<div className="mui-textfield mui-col-sm-6">
-
+							<div className="button-group"
+>							<button
+							className="mui-btn mui-btn--raised mui-col-sm-4"
+							onClick={() => { 
+								loadTickerData(this.state.industryMap, 0, 0) 
+									.then(pageData => {
+										this.setState({
+											cryptoTableData: pageData,
+											paginate: {
+												start: 0
+											}
+										}, () => document.documentElement.scrollTop = 0)
+									})
+							}}>SHOW All</button>
+							</div>
 						</div>						
 					</div>
 				</div>

@@ -3,6 +3,10 @@
 	border-bottom: 1px solid var(--unmellow-yellow);
 }
 
+.mui-form input:focus, .mui-form--inline input:focus {
+	border-bottom: 1px solid var(--winter-green);
+}
+
 ::-webkit-input-placeholder { color: var(--hairspray-grey) !important;} /* Chrome/Opera/Safari */
 ::-moz-placeholder { color: var(--hairspray-grey) !important;} /* firefox 19+ */
 ::-ms-input-placeholder { color: var(--hairspray-grey) !important;} /* ie */
