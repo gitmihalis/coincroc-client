@@ -16,6 +16,16 @@ td.currency-name {
 	overflow: hidden;
 }
 
+td > a {
+	color: var(--electric-blue);
+	text-decoration: underline;
+	text-decoration-color: #fff
+}
+
+td > a:hover {
+	color: var(--hairspray-grey)
+}
+
 td.industry ul {
 	padding: 0;
 	margin: 0;
@@ -38,7 +48,7 @@ ul.industry-list {
 }
 
 .industry-list li {
-	display: inline;
+	display: inline-block;
 	padding-right: .3em;
 }
 
