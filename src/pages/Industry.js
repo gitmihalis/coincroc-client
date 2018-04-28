@@ -32,12 +32,8 @@ export class Industry extends Component{
 	componentDidMount(){
 		this.fetchCryptocurrencies()
 			.then((res) => {
-				const data = res.data
-				this.setState({ 
-					cryptocurrencies: data 
-				}, () => { 
-					console.log('finished fetchCryptocurrencies()', this.state) 
-				})
+				const cryptocurrencies = res.data
+				this.setState({cryptocurrencies})
 			})
 			.then(() => {
 				this.fetchTickerData()
@@ -47,7 +43,7 @@ export class Industry extends Component{
 
 	fetchCryptocurrencies = () => {
 		const industryName = (this.props.match.params.name)
-			.replace(' ', '+')
+			.replace(/\s/gm, '+')
 		console.log(industryName)
 		const res = axios.get(
 			`${baseAPI}/cryptocurrencies?filter[where][industries.name]=${industryName}`
@@ -60,8 +56,9 @@ export class Industry extends Component{
 		const cryptos = this.state.cryptocurrencies
 
 		for (let crypto of cryptos) {
-			let query = crypto.name.replace(' ', '-').toLowerCase(); 			console.log('fetching /ticker/' + query)
-			const res = await axios.get(`https://api.coinmarketcap.com/v1/ticker/${query}/`)
+			let query = crypto.name.replace(/\s/gm, '-').toLowerCase()
+			console.log('fetching /ticker/' + query) 		
+			const res = await axios.get(`https://api.coinmarketcap.com/v1/ticker/${query}/?convert=CAD`)
 			const tickerData = this.state.tickerData
 			this.setState({tickerData: [...tickerData, res.data[0]]})
 		}
@@ -105,9 +102,15 @@ export class Industry extends Component{
 		})
 	}	
 
+	clearMsg = () => {
+		this.setState({
+			errorMessage: '',
+			message: '',
+		})
+	}		
+
 	render(){
 		const tickerData = this.state.tickerData || []
-		console.log('tickerData = ', tickerData)
 		const rowItems = tickerData.map( crypto => {
 			return (
 				<IndustryRowItem key={crypto.id} data={crypto} />

@@ -1,11 +1,12 @@
 import React, {Component} from 'react'
 import {Link} from 'react-router-dom'
-import {Notice} from '../components/Notice'
 import {Error} from '../components/Error'
+import {Notice}  from '../components/Notice'
 import {loadDetails} from '../services/cryptocurrencyService'
 import axios from 'axios'
 import cookie from 'react-cookies'
 import {Navbar} from '../components/Navbar'
+import { FourOhFour } from './FourOhFour';
 
 export class Cryptocurrency extends Component{
 	constructor(props){
@@ -24,6 +25,9 @@ export class Cryptocurrency extends Component{
 			const data = res.data
 			this.setState({ price: data, message: 'loading...' })
 		})
+		.then(_ => {
+			this.clearMsg()
+		})
 		.catch(err => { 
 			this.setState({errorMessage: err.message})
 		})
@@ -32,7 +36,10 @@ export class Cryptocurrency extends Component{
 			.then(res => {
 				const details = res.data
 				this.setState({ cryptocurrency: details})
-    	})
+			})
+			.then(_ => {
+				this.clearMsg()
+			})
     	.catch(err => { 
 				this.setState({errorMessage: err.message})
 			})
@@ -41,14 +48,25 @@ export class Cryptocurrency extends Component{
 	/* ----------------------------------------------------------------------------------
 	Load a single price */
 	fetchCurrentPrice = (fiatSym) => {
-		const tokenSymbol = this.props.match.params.symbol
+		/* The coinmarketcap datasource and the cryptocompare datasource have different symbols for NANO. The
+		quick fix is to swap it. */
+		let tokenSymbol = (this.props.match.params.symbol === 'NANO') ?	'XRB' : this.props.match.params.symbol
 		return axios.get(`https://min-api.cryptocompare.com/data/price?fsym=${tokenSymbol}&tsyms=${fiatSym}`)
+	}	
+
+	clearMsg = () => {
+		this.setState({
+			errorMessage: '',
+			message: '',
+		})
 	}	
 
 	render = () => {
 		const accessToken = cookie.load('access_token')
-		const cryptocurrency = this.state.cryptocurrency ? this.state.cryptocurrency[0] : ''
-		const image = cryptocurrency ? cryptocurrency.image : 'https://cryptocomapre.com' + this.state.defaultImg
+		// const cryptocurrency = this.state.cryptocurrency ? this.state.cryptocurrency[0] : ''
+		const cryptocurrency = this.state.cryptocurrency[0]
+		if(!cryptocurrency) return <FourOhFour/>
+		const image = cryptocurrency ? cryptocurrency.image : this.state.defaultImg
 		let industryList = []
 		if (cryptocurrency && cryptocurrency.industries) {
 			industryList = cryptocurrency.industries.map((industry) => {
@@ -62,9 +80,8 @@ export class Cryptocurrency extends Component{
 			}) 
 		}
 
-		if (cryptocurrency) { 
 			return(
-			<div className>
+			<div>
 				<Navbar isLoggedIn={accessToken}/>
 				<div className="mui-container cyptocurrency">
 					<div className="mui-row">
@@ -95,11 +112,10 @@ export class Cryptocurrency extends Component{
 							</div>
 					</div>
 				</div>
+					{this.state.errorMessage && <Error msg={this.state.errorMessage} close={this.clearMsg}/>}
+					{this.state.message && <Notice msg={this.state.message} close={this.clearMsg}/>}				
 			</div>
 		)
-		} else {
-			return (<Error error={this.state.price}/>)
-		}
 	}
 }
 

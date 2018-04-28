@@ -4,7 +4,7 @@ import $ from 'jquery'
 
 export class Navbar extends Component {
   componentDidMount() {
-      let $nav = $('nav.greedy');
+      // let $nav = $('nav.greedy');
       let $btn = $('nav.greedy button');
       let $vlinks = $('nav.greedy .links');
       let $hlinks = $('nav.greedy .hidden-links');

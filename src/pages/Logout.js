@@ -1,7 +1,6 @@
 import React from 'react'
 import axios from 'axios'
 import { baseAPI } from '../utils'
-import {Navbar} from '../components/Navbar'
 import cookie from 'react-cookies'
 
 

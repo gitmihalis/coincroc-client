@@ -3,6 +3,7 @@
 
 .nav-wrapper {
   padding: 1.55rem;
+  margin-bottom: 3.125em;
 }
 nav.greedy {
   position: relative;
@@ -19,6 +20,7 @@ nav.greedy img {
   padding-top: .7rem;
   max-width: 80%;
   max-height: 90px;
+  min-width: 150px;
   z-index: -1;
 }
 
