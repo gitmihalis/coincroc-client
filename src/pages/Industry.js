@@ -44,7 +44,6 @@ export class Industry extends Component{
 	fetchCryptocurrencies = () => {
 		const industryName = (this.props.match.params.name)
 			.replace(/\s/gm, '+')
-		console.log(industryName)
 		const res = axios.get(
 			`${baseAPI}/cryptocurrencies?filter[where][industries.name]=${industryName}`
 		)

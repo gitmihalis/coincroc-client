@@ -27,7 +27,7 @@ export class Industries extends Component{
         const sorted = res.data.sort((a, b) => {
           return a.name > b.name ? 1 : -1
         })
-        this.setState({ industries: sorted }, () => console.log(this.state))
+        this.setState({ industries: sorted })
       })
       .catch( err => console.error(err))
   }

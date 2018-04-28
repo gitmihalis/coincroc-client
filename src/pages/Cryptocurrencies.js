@@ -104,7 +104,6 @@ export class Cryptocurrencies extends Component {
 		this.setState({
 			search: query
 		})
-		console.log(query)
 	}
 
 	render(){
