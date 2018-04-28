@@ -21,6 +21,8 @@ export const Footer = () => (
 					Data provided by the <a href='http://www.coinmarketcap.com'>coinmarketcap.com</a> and <a href="http://www.cryptocompare.com">cryptocompare.com</a> APIs.
 				</small><br/>
 				<small> All prices are shown in CAD.</small>
+				<img id="flag-tag" alt="flag" src="http://res.cloudinary.com/dattofkud/image/upload/v1524940117/White_maple_leaf_symbol_v4k217.png"/>
+
 			</p>
 		</div>
 	</div>

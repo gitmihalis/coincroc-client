@@ -106,8 +106,9 @@ img#xray-brand {
 }
 
 #flag-tag {
-	height: 25px;
-	width: 25px;
+	position: absolute;
+	height: 24px;
+	width: 24px;
 }
 
 @media (min-width:320px) { /* smartphones, iPhone, portrait 480x320 phones */ }
