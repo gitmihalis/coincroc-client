@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import axios from 'axios'
 import cookie from 'react-cookies'
 import {Error} from '../components/Error'
+import {Navbar} from '../components/Navbar'
 import { baseAPI } from '../utils'
 
 export class Login extends Component {
@@ -17,7 +18,10 @@ export class Login extends Component {
 	}
 
   componentWillMount = () => {
-    this.setState({ accessToken: cookie.load('access_token')})
+		// if access token is present, log the user out...
+		if (cookie.load('access_token')) {
+			cookie.remove('access_token')
+		}
 	}	
 	
 	clearMsg = () => {
@@ -83,31 +87,36 @@ export class Login extends Component {
 		const sumbitHandler = (this.state.email && this.state.password ) ?
 			this.handleSubmit : this.handleEmptySubmit
 		return (
+			<div className="login">
+			<Navbar isLoggedIn={this.state.accessToken}/>
 			<div className="mui-container">
-				<div className="mui-row login">
-				<h1>Login</h1>
-				<small>Well... go ahead and login then.</small>
-			
-				<form className="mui-form">
-					<legend></legend>
-					<div className="mui-textfield">
-						<input name="email"
-									type="text" 
-									placeholder="email"
-									onChange={this.handleInputChange} />
-					</div>
-					<div className="mui-textfield">
-						<input name="password"
-									type="password" 
-									placeholder="password"
-									onChange={this.handleInputChange} />
-					</div>
-					<button type="submit" 
-									className="mui-btn mui-btn--raised"
-									onClick={sumbitHandler}
-					>Submit</button>
-				</form>
-				{this.state.errorMessage && <Error msg={this.state.errorMessage} close={this.clearMsg}/>}
+				<div className="mui-row">
+				<div className="mui-col-xs-12">
+					<h1>Login</h1>
+					<small>Well... go ahead and login then.</small>
+					<form className="mui-form">
+						<legend></legend>
+						<div className="mui-textfield">
+							<input name="email"
+										type="text" 
+										placeholder="email"
+										onChange={this.handleInputChange} />
+						</div>
+						<div className="mui-textfield">
+							<input name="password"
+										type="password" 
+										placeholder="password"
+										onChange={this.handleInputChange} />
+						</div>
+						<button type="submit" 
+										className="mui-btn mui-btn--raised"
+										onClick={sumbitHandler}
+						>Submit</button>
+					</form>
+
+					{this.state.errorMessage && <Error msg={this.state.errorMessage} close={this.clearMsg}/>}
+				</div>
+				</div>				
 			</div>
 		</div>
 		)

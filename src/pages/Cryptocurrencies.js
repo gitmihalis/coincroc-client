@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { CryptoTableMenu, CryptoRowItem} from '../components/CryptoTable'
 import { loadCryptos, loadTickerData, parseIndustries } from '../services/cryptocurrencyService'
+import {Navbar} from '../components/Navbar'
+import cookie from 'react-cookies'
 
 export class Cryptocurrencies extends Component {
 		state = {
@@ -106,6 +108,7 @@ export class Cryptocurrencies extends Component {
 	}
 
 	render(){
+		const accessToken = cookie.load('access_token')
 		const cryptoTableData = this.state.cryptoTableData || []
 		const filteredCryptos = cryptoTableData.filter((crypto) => {
 			return (
@@ -120,76 +123,79 @@ export class Cryptocurrencies extends Component {
 		})
 
 		return (
-			<div className="mui-container cryptocurrencies">
-				<div className="mui-row">
-					<div className="mui-form--inline">
-						<div className="mui-textfield mui-col-sm-6">
-							<input type="text"
-							value={this.state.query}
-							onChange={this.updateSearch}
-							placeholder="Search"
-							/>
-						</div>
-						<div className="mui-textfield mui-col-sm-6">
-							<div className="button-group">							
-								<button id="show-all"
-								className="mui-btn mui-btn--raised mui-col-sm-4"
-								onClick={() => { 
-									loadTickerData(this.state.industryMap, 0, 0).then(pageData => {
-										this.setState({
-											cryptoTableData: pageData,
-											paginate: {
-												start: 0
-											}
-										}, () => document.documentElement.scrollTop = 0)
-									})
-								}}>SHOW All</button>
+			<div>
+				<Navbar isLoggedIn={accessToken}/>
+				<div className="mui-container cryptocurrency">
+					<div className="mui-row">
+						<div className="mui-form--inline">
+							<div className="mui-textfield mui-col-sm-6">
+								<input type="text"
+								value={this.state.query}
+								onChange={this.updateSearch}
+								placeholder="Search"
+								/>
 							</div>
-						</div>						
+							<div className="mui-textfield mui-col-sm-6">
+								<div className="button-group">							
+									<button id="show-all"
+									className="mui-btn mui-btn--raised mui-col-sm-4"
+									onClick={() => { 
+										loadTickerData(this.state.industryMap, 0, 0).then(pageData => {
+											this.setState({
+												cryptoTableData: pageData,
+												paginate: {
+													start: 0
+												}
+											}, () => document.documentElement.scrollTop = 0)
+										})
+									}}>SHOW All</button>
+								</div>
+							</div>						
+						</div>
 					</div>
-				</div>
-				<br/>
-				<div className="mui-row">
-					<div className="mui-col-xs-12">
-						<h4>Showing {filteredCryptos.length} cryptocurrencies</h4>	
-					</div>		
-				</div>
-				<div className="mui-row">	
-					<table className="mui-table mui-table--bordered" id="table">
-						<CryptoTableMenu sortNumeric={this.sortNumeric} sortAlpha={this.sortAlpha} />
-						<tbody>
-							{rowItems ? rowItems : 'none'}
-						</tbody>
-					</table>
+					<br/>
+					<div className="mui-row">
+						<div className="mui-col-xs-12">
+							<h4>Showing {filteredCryptos.length} cryptocurrencies</h4>	
+						</div>		
+					</div>
+					<div className="mui-row">	
+						<table className="mui-table mui-table--bordered" id="table">
+							<CryptoTableMenu sortNumeric={this.sortNumeric} sortAlpha={this.sortAlpha} />
+							<tbody>
+								{rowItems ? rowItems : 'none'}
+							</tbody>
+						</table>
 
-					
-					<div className="button-group">
-					<button 
-					className="mui-btn mui-btn--raised mui-col-sm-4"
-					onClick={() => this.handlePaginate(true)}
-					>Prev</button>
+						
+						<div className="button-group">
+						<button 
+						className="mui-btn mui-btn--raised mui-col-sm-4"
+						onClick={() => this.handlePaginate(true)}
+						>Prev</button>
 
 
-					<button 
-					className="mui-btn mui-btn--raised mui-col-sm-4"
-					onClick={() => { 
-						loadTickerData(this.state.industryMap, 0, 0) 
-							.then(pageData => {
-								this.setState({
-									cryptoTableData: pageData,
-									paginate: {
-										start: 0
-									}
-								}, () => document.documentElement.scrollTop = 0)
-							})
-					}}>All</button>
+						<button 
+						className="mui-btn mui-btn--raised mui-col-sm-4"
+						onClick={() => { 
+							loadTickerData(this.state.industryMap, 0, 0) 
+								.then(pageData => {
+									this.setState({
+										cryptoTableData: pageData,
+										paginate: {
+											start: 0
+										}
+									}, () => document.documentElement.scrollTop = 0)
+								})
+						}}>All</button>
 
-					<button 
-					className="mui-btn mui-btn--raised mui-col-sm-4"
-					onClick={() => this.handlePaginate()}
-					>Next</button>				
-					
-					</div> 
+						<button 
+						className="mui-btn mui-btn--raised mui-col-sm-4"
+						onClick={() => this.handlePaginate()}
+						>Next</button>				
+						
+						</div> 
+					</div>
 				</div>
 			</div>
 		)

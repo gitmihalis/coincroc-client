@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React from 'react'
 import { Switch, Route } from 'react-router-dom'
 import { Cryptocurrencies } from '../pages/Cryptocurrencies'
 import { Cryptocurrency } from '../pages/Cryptocurrency'
@@ -9,40 +9,17 @@ import { About } from '../pages/About'
 import { Login } from '../pages/Login'
 import { Logout } from '../pages/Logout'
 import { FourOhFour } from '../pages/FourOhFour'
-import { Navbar } from './Navbar';
-import cookie from 'react-cookies'
 
-export class Main extends Component {
-	state = {
-		accessToken: '',
-	}
-
-	componentDidMount(){
-		this.updateAccessToken()
-	}
-
-	updateAccessToken = () => {
-		const accessToken = cookie.load('access_token')
-		this.setState({accessToken})
-	}
-	render(){
-		
-		return(
-			<main>
-			<Navbar isAuth={this.state.accessToken}/>
-			<Switch>
-				<Route exact path="/" component={Cryptocurrencies}/>
-				<Route exact path="/about" component={About}/>
-				<Route exact path="/industries" component={Industries}/>
-				<Route exact path="/login" component={Login}/>
-				<Route exact path="/logout" component={Logout}/>
-				<Route exact path="/dashboard" component={Dashboard}/>
-				<Route path="/industries/:name" component={Industry}/>
-				<Route path="/cryptocurrencies/:symbol" component={Cryptocurrency}/>
-				<Route path="/:anythingelse" component={FourOhFour}/>
-			</Switch>
-			
-			</main>
-		)
-	}
-}
+export const Main = () => (
+		<Switch>
+			<Route exact path="/" component={Cryptocurrencies}/>
+			<Route exact path="/about" component={About}/>
+			<Route exact path="/industries" component={Industries}/>
+			<Route exact path="/login" component={Login}/>
+			<Route exact path="/logout" component={Logout}/>
+			<Route exact path="/dashboard" component={Dashboard}/>
+			<Route path="/industries/:name" component={Industry}/>
+			<Route path="/cryptocurrencies/:symbol" component={Cryptocurrency}/>
+			<Route path="/:anythingelse" component={FourOhFour}/>
+		</Switch>
+)

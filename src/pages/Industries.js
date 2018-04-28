@@ -2,6 +2,9 @@ import React, { Component } from 'react'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
 import { baseAPI } from '../utils'
+import {Navbar} from '../components/Navbar'
+import cookie from 'react-cookies'
+
 
 
 export class Industries extends Component{
@@ -30,7 +33,7 @@ export class Industries extends Component{
   }
 
   render(){
-
+    const accessToken = cookie.load('access_token')
     const coinCount = this.state.industries.length
     const industryItems = this.state.industries.map( (industry, i) => {
       return (
@@ -43,16 +46,19 @@ export class Industries extends Component{
     })
 
     return (
-      <div className="mui-container">
-        <div className="mui-row industries">
-          <div className="card">
-            <div className="card-divider">
-            <h5>Showing {coinCount} industries</h5>
-            </div>
-            <div className="">
-              {industryItems}
-            </div>
-          </div>    
+      <div className="industries">
+        <Navbar isLoggedIn={accessToken}/>
+        <div className="mui-container">
+          <div className="mui-row">
+            <div className="card">
+              <div className="card-divider">
+              <h5>Showing {coinCount} industries</h5>
+              </div>
+              <div className="">
+                {industryItems}
+              </div>
+            </div>    
+          </div>
         </div>
       </div>
     )

@@ -8,6 +8,7 @@ import { Error } from '../components/Error'
 import { Notice } from '../components/Notice'
 import { baseAPI } from '../utils'
 import 'react-select/dist/react-select.css'
+import {Navbar} from '../components/Navbar'
 
 
 export class Dashboard extends Component{
@@ -99,8 +100,6 @@ export class Dashboard extends Component{
 	}	
 
 
-
-
 	onUnpair = () => {
 		const { selectedIndustry, selectedCrypto } = this.state
 		const existingIndustries = selectedCrypto.industries || []
@@ -130,8 +129,6 @@ export class Dashboard extends Component{
 	}	
 
 
-
-
 	scrape = () => {
 		axios.request({
 			url: `${baseAPI}/cryptocurrencies/scrapecrypto`,
@@ -147,8 +144,6 @@ export class Dashboard extends Component{
 			() => console.error(err.response.data))
 		})
 	}
-
-
 
 
 	handleIndustryInputChange = (e) => {
@@ -177,6 +172,7 @@ export class Dashboard extends Component{
 			})
 	}
 
+
 	onDestroyIndustry = (e) => {
 		e.preventDefault()
 		if (!this.state.selectedIndustry) {
@@ -196,72 +192,74 @@ export class Dashboard extends Component{
 
 
 
-
 	render(){
 		const cryptoOptions = this.state.cryptoOptions || []
 		const industryOptions = this.state.industryOptions || []
 		console.log(this.state.industryOptions)
 		return(
-		<div className="mui-container">
-				<div className="mui-row">
-					<form className="mui-form">
-						<div className="mui-textfield">
+		<div className="dashboard">
+				<Navbar isLoggedIn={this.state.accessToken}/>
+				<div className="mui-container">
+					<div className="mui-row">
+						<form className="mui-form">
 							<div className="mui-textfield">
-								<input name="industry"
-									type="text" 
-									placeholder="New Industry"
-									onChange={this.handleIndustryInputChange} />
+								<div className="mui-textfield">
+									<input name="industry"
+										type="text" 
+										placeholder="New Industry"
+										onChange={this.handleIndustryInputChange} />
+								</div>
 							</div>
+							<button className="mui-btn" onClick={this.onCreateIndustry}>Create</button>
+						</form>
+					</div>
+					<br/>		
+					<div className="mui-row">
+						<div id="select-cryptocurrency" className="mui-col-sm-6">
+							<label>Crypto:
+								<Select
+									value={this.state.selectedCrypto}
+									onChange={this.onSelectionChangeCrypto} 
+									name="cryptoOption"
+									options={cryptoOptions}
+									labelKey="name"
+									valueKey="id"
+								/>
+							</label>
 						</div>
-						<button className="mui-btn" onClick={this.onCreateIndustry}>Create</button>
-					</form>
-				</div>
-				<br/>		
-				<div className="mui-row">
-					<div id="select-cryptocurrency" className="mui-col-sm-6">
-						<label>Crypto:
-							<Select
-								value={this.state.selectedCrypto}
-								onChange={this.onSelectionChangeCrypto} 
-								name="cryptoOption"
-								options={cryptoOptions}
-								labelKey="name"
-								valueKey="id"
-							/>
-						</label>
+
+						<div id="select-industry" className="mui-col-sm-6">
+							<label>Industry:
+								<Select
+									name="industryOption"
+									value={this.state.selectedIndustry}
+									onChange={this.onSelectionChangeIndustry}
+									options={industryOptions}
+									labelKey="name"
+									valueKey="id"
+								/>
+							</label>
+						</div>
 					</div>
 
-					<div id="select-industry" className="mui-col-sm-6">
-						<label>Industry:
-							<Select
-								name="industryOption"
-								value={this.state.selectedIndustry}
-								onChange={this.onSelectionChangeIndustry}
-								options={industryOptions}
-								labelKey="name"
-								valueKey="id"
-							/>
-						</label>
+					<br/>
+					<div className="mui-row">
+						<div className="button-group">
+							<button onClick={this.onUnpair} className="mui-btn alrt mui-col-xs-4">Unpair</button>
+							<button onClick={this.onPair} className="mui-btn mui-col-xs-4">Pair</button>
+							<button onClick={this.onDestroyIndustry} className="mui-btn mui-col-xs-4">Delete Industry</button>
+						</div>
 					</div>
-				</div>
-
-				<br/>
-				<div className="mui-row">
-					<div className="button-group">
-						<button onClick={this.onUnpair} className="mui-btn alrt mui-col-xs-4">Unpair</button>
-						<button onClick={this.onPair} className="mui-btn mui-col-xs-4">Pair</button>
-						<button onClick={this.onDestroyIndustry} className="mui-btn mui-col-xs-4">Delete Industry</button>
+					<br/>
+					<div className="mui-row">
+						<div className="button-group">
+							<button onClick={this.scrape} className="mui-btn mui-col-xs-12">SCRAPE</button>
+						</div>
 					</div>
+					{this.state.errorMessage && <Error msg={this.state.errorMessage} close={this.clearMsg}/>}
+					{this.state.message && <Notice msg={this.state.message} close={this.clearMsg}/>}
 				</div>
-				<br/>
-				<div className="mui-row">
-					<div className="button-group">
-						<button onClick={this.scrape} className="mui-btn mui-col-xs-12">SCRAPE</button>
-					</div>
-				</div>
-				{this.state.errorMessage && <Error msg={this.state.errorMessage} close={this.clearMsg}/>}
-				{this.state.message && <Notice msg={this.state.message} close={this.clearMsg}/>}
-		</div>
+			</div>
 		)
 	}
 }

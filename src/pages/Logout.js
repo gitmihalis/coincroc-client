@@ -1,25 +1,28 @@
 import React from 'react'
 import axios from 'axios'
-import cookie from 'react-cookies'
 import { baseAPI } from '../utils'
+import {Navbar} from '../components/Navbar'
+import cookie from 'react-cookies'
 
 
-const accessToken = cookie.load('access_token')
-const url = `${baseAPI}/Admins/logout?access_token=${accessToken}`
-const onLogout = () => {
-  cookie.remove('access_token', { path: '/' })
-  window.location.href = '/'
+
+const onLogout = (props) => {
+  cookie.remove('access_token')
+	props.history.push('/')
 }
 
 export const Logout = (props) => {
+	console.log(props)
+	const accessToken = cookie.load('access_token')
+	const url = `${baseAPI}/Admins/logout?access_token=${accessToken}`
 	axios.post(url)
 		.then(res => {
-			console.log('successfuly logged out: ', res)
-		  onLogout(accessToken)
+			onLogout(props)
 		})
 		.catch(err => {
 			console.log('error response: ', err)
-			return <p>You're still here..?</p>
+			props.history.push('/')
+			return
 		})
 
 	return (

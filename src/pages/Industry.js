@@ -3,6 +3,8 @@ import axios from 'axios'
 import {IndustryTableMenu} from '../components/IndustryTableMenu'
 import {IndustryRowItem} from '../components/IndustryRowItem'
 import { baseAPI } from '../utils'
+import {Navbar} from '../components/Navbar'
+import cookie from 'react-cookies'
 
 
 export class Industry extends Component{
@@ -10,6 +12,7 @@ export class Industry extends Component{
 	constructor(props){
 		super(props)
 		this.state = {
+			accessToken: '',
 			isLoaded: 'false',
 			cryptocurrencies: '',
 			tickerData: '',
@@ -22,8 +25,11 @@ export class Industry extends Component{
 			}
 		}
 	}
-
-	componentWillMount = () => {
+	componentWillMount(){
+		const accessToken = cookie.load('access_token')
+		this.setState({accessToken})
+	}
+	componentDidMount(){
 		this.fetchCryptocurrencies()
 			.then((res) => {
 				const data = res.data
@@ -109,16 +115,19 @@ export class Industry extends Component{
 		})
 
 		return (
-			<div className="mui-container">
-				<div className="mui-row industry">
-					<hr/>
-					<h5>Showing {this.state.tickerData.length} {this.props.match.params.name} cryptocurrencies</h5>
-					<table className="mui-table mui-table--bordered" id="table">
-						<IndustryTableMenu sortNumeric={this.sortNumeric} sortAlpha={this.sortAlpha} />
-						<tbody>
-						{rowItems}
-						</tbody>
-					</table>
+			<div className="industry">
+				<Navbar isLoggedIn={this.state.accessToken}/>
+				<div className="mui-container">
+					<div className="mui-row industry">
+						<hr/>
+						<h5>Showing {this.state.tickerData.length} {this.props.match.params.name} cryptocurrencies</h5>
+						<table className="mui-table mui-table--bordered" id="table">
+							<IndustryTableMenu sortNumeric={this.sortNumeric} sortAlpha={this.sortAlpha} />
+							<tbody>
+							{rowItems}
+							</tbody>
+						</table>
+					</div>
 				</div>
 			</div>
 		)
