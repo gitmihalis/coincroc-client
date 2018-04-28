@@ -10,6 +10,7 @@ const App = () => (
   <div>
 			<Main />
 			<Footer />
+			<img id="flag-tag" alt="flag" src="http://res.cloudinary.com/dattofkud/image/upload/v1524940117/White_maple_leaf_symbol_v4k217.png"/>
 	</div>
 )
 

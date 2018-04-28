@@ -18,8 +18,9 @@ export const Footer = () => (
 		<div className="row mui--text-center">
 			<p>
 				<small>
-					Data provided by the <a href='http://www.coinmarketcap.com'>coinmarketcap.com</a> and <a href="http://www.cryptocompare.com">cryptocompare.com</a> APIs
-				</small>
+					Data provided by the <a href='http://www.coinmarketcap.com'>coinmarketcap.com</a> and <a href="http://www.cryptocompare.com">cryptocompare.com</a> APIs.
+				</small><br/>
+				<small> All prices are shown in CAD.</small>
 			</p>
 		</div>
 	</div>

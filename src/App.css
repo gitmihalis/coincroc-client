@@ -105,6 +105,17 @@ img#xray-brand {
 	color: #ff3838;
 }
 
+#flag-tag {
+	position: absolute;
+	height: 25px;
+	width: 25px;
+	top: 10px;
+	left: 10px;
+}
+#flag-tag:after {
+	content: 'CAD';
+	display: inline-block;
+}
 
 @media (min-width:320px) { /* smartphones, iPhone, portrait 480x320 phones */ }
 @media (min-width:481px) { /* portrait e-readers (Nook/Kindle), smaller tablets @ 600 or @ 640 wide. */ }
