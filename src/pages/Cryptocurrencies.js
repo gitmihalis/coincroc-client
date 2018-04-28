@@ -155,7 +155,7 @@ export class Cryptocurrencies extends Component {
 					<br/>
 					<div className="mui-row">
 						<div className="mui-col-xs-12">
-							<h4>Showing {filteredCryptos.length} cryptocurrencies</h4>	
+							<h4>Showing {filteredCryptos.length} tokens in $CAD</h4>	
 						</div>		
 					</div>
 					<div className="mui-row">	
