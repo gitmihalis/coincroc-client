@@ -63,7 +63,7 @@ export class Navbar extends Component {
       <div className="nav-wrapper">
         <nav className='greedy' id="page-top">
           <h1>
-          <img src="http://res.cloudinary.com/dattofkud/image/upload/v1524096719/cryptocat/cryptocroc/coincroc-brand.png"
+          <img src="https://res.cloudinary.com/dattofkud/image/upload/v1524096719/cryptocat/cryptocroc/coincroc-brand.png"
                 alt="coincroc-brand" />
           </h1>
             <ul className='links'>

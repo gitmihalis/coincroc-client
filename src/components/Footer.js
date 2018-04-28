@@ -10,7 +10,7 @@ export const Footer = () => (
 					<i className="brand-icon github"></i>gitmihalis
 					</a>
 				</p>
-				<img id="xray-brand" src="http://res.cloudinary.com/dattofkud/image/upload/v1524153905/cryptocat/xray-coincroc.png" alt="xray logo"/>
+				<img id="xray-brand" src="https://res.cloudinary.com/dattofkud/image/upload/v1524153905/cryptocat/xray-coincroc.png" alt="xray logo"/>
 			</div>
 			<div className="mui-col-xs-1">
 			</div>
@@ -18,10 +18,10 @@ export const Footer = () => (
 		<div className="row mui--text-center">
 			<p>
 				<small>
-					Data provided by the <a href='http://www.coinmarketcap.com'>coinmarketcap.com</a> and <a href="http://www.cryptocompare.com">cryptocompare.com</a> APIs.
+					Data provided by the <a href='https://www.coinmarketcap.com'>coinmarketcap.com</a> and <a href="https://www.cryptocompare.com">cryptocompare.com</a> APIs.
 				</small><br/>
 				<small> All prices are shown in CAD.</small>
-				<img id="flag-tag" alt="flag" src="http://res.cloudinary.com/dattofkud/image/upload/v1524940117/White_maple_leaf_symbol_v4k217.png"/>
+				<img id="flag-tag" alt="flag" src="https://res.cloudinary.com/dattofkud/image/upload/v1524940117/White_maple_leaf_symbol_v4k217.png"/>
 
 			</p>
 		</div>
