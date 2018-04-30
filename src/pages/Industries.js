@@ -16,7 +16,7 @@ export class Industries extends Component{
     }
   }
 
-  componentWillMount(){
+  componentDidMount(){
     this.getIndustries()
   }
 
