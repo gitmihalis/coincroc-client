@@ -50,14 +50,16 @@ export class Industries extends Component{
         <Navbar isLoggedIn={accessToken}/>
         <div className="mui-container">
           <div className="mui-row">
-            <div className="card">
-              <div className="card-divider">
-              <h5>Showing {coinCount} industries</h5>
-              </div>
-              <div className="">
-                {industryItems}
-              </div>
-            </div>    
+            <div className="mui-col-xs-12">
+              <div className="card">
+                <div className="card-divider">
+                <h5>Showing {coinCount} industries</h5>
+                </div>
+                <div className="">
+                  {industryItems}
+                </div>
+              </div>    
+            </div>
           </div>
         </div>
       </div>
