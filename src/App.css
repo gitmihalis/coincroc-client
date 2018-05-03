@@ -42,7 +42,9 @@ a {
 .mui-panel.industry {
 	background: black;
 	color: white;
-	transform: skewX(-10deg);
+	-webkit-transform: skewX(-10deg);
+	    -ms-transform: skewX(-10deg);
+	        transform: skewX(-10deg);
 	text-transform: uppercase;
 }
 
@@ -60,8 +62,12 @@ img.coin-avatar {
 }
 
 .button-group {
+	display: -webkit-box;
+	display: -ms-flexbox;
 	display: flex;
-	justify-content: space-between;
+	-webkit-box-pack: justify;
+	    -ms-flex-pack: justify;
+	        justify-content: space-between;
 }
 
 .button-group button:nth-child(odd) {
@@ -127,5 +133,3 @@ img#xray-brand {
 }
 @media (min-width:1281px) { /* hi-res laptops and desktops */ 
 }
-
-

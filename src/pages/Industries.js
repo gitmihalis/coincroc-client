@@ -22,7 +22,7 @@ export class Industries extends Component{
 
   getIndustries(limit){
     // TODO convert to CAD
-    axios.get(`${baseAPI}/industries?filter[where][depth]=1`)
+    axios.get(`${baseAPI}/industries?filter[where][depth]=0`)
       .then(res => {
         const sorted = res.data.sort((a, b) => {
           return a.name > b.name ? 1 : -1

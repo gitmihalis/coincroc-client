@@ -8,8 +8,12 @@
 nav.greedy {
   position: relative;
   height: 60px;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  align-items: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   z-index: 999;
   margin-bottom: 27px;
 }
@@ -25,18 +29,25 @@ nav.greedy img {
 }
 
 nav.greedy button {
-  align-self: stretch;
+  -ms-flex-item-align: stretch;
+      -ms-grid-row-align: stretch;
+      align-self: stretch;
+  -webkit-transition: all .4s ease-out;
+  -o-transition: all .4s ease-out;
   transition: all .4s ease-out;
   padding: 0 1rem 0 1.5rem;
   outline: 0;
   border: 0;
   font-weight: bold;
-  box-shadow: 2px 2px 2px #000;
+  -webkit-box-shadow: 2px 2px 2px #000;
+          box-shadow: 2px 2px 2px #000;
   background: var(--dorn-yellow);
   color: var(--shadowed-steel);
 }
 
 nav.greedy button.hidden {
+  -webkit-transition: none;
+  -o-transition: none;
   transition: none;
   border-right: 0.5rem solid var(--shadowed-steel);
   width: 0;
@@ -47,11 +58,17 @@ nav.greedy button.hidden {
 
 nav.greedy button::after {
   content: attr(count);
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
   display: inline-flex;
   width: 30px;
   height: 30px;
-  align-items: center;
-  justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   background: var(--winter-green);
   color: var(--shadowed-steel);
   border-radius: 50%;
@@ -64,9 +81,15 @@ nav.greedy button::after {
 ul.links {
   margin: 0 0 0 5em;
   list-style: inside circle;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: flex-end;
-  flex: 1;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
   overflow: hidden;
 }
 
@@ -74,7 +97,9 @@ ul.links li {
   font-family: "Cantarell";
   font-style: italic;
   margin: 0;
-  flex: none;
+  -webkit-box-flex: 0;
+      -ms-flex: none;
+          flex: none;
   padding: 1rem;
   text-transform: uppercase;
   font-weight: bold;
@@ -90,7 +115,8 @@ ul.hidden-links {
   list-style: circle;
   position: absolute;
   background: #3d3d3d;
-  box-shadow: 0 0 300px #000;
+  -webkit-box-shadow: 0 0 300px #000;
+          box-shadow: 0 0 300px #000;
   right: 0;
   top: 100%;
 }
@@ -113,7 +139,8 @@ ul.hidden-links li {
 }
 
 * {
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 
 @media screen and (max-width: 375px) {

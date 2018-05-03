@@ -6,7 +6,6 @@ import {loadDetails} from '../services/cryptocurrencyService'
 import axios from 'axios'
 import cookie from 'react-cookies'
 import {Navbar} from '../components/Navbar'
-import { FourOhFour } from './FourOhFour';
 
 export class Cryptocurrency extends Component{
 	constructor(props){
@@ -65,9 +64,10 @@ export class Cryptocurrency extends Component{
 		const accessToken = cookie.load('access_token')
 		// const cryptocurrency = this.state.cryptocurrency ? this.state.cryptocurrency[0] : ''
 		const cryptocurrency = this.state.cryptocurrency[0]
-		if(!cryptocurrency) return <FourOhFour/>
+		if(!cryptocurrency) return null
 		const image = cryptocurrency ? cryptocurrency.image : this.state.defaultImg
 		let industryList = []
+
 		if (cryptocurrency && cryptocurrency.industries) {
 			industryList = cryptocurrency.industries.map((industry) => {
 				return (
