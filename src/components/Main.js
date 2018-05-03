@@ -13,6 +13,7 @@ import { FourOhFour } from '../pages/FourOhFour'
 export const Main = () => (
 		<Switch>
 			<Route exact path="/" component={Cryptocurrencies}/>
+			<Route exact path="/cryptocurrencies" component={Cryptocurrencies}/>
 			<Route exact path="/about" component={About}/>
 			<Route exact path="/industries" component={Industries}/>
 			<Route exact path="/login" component={Login}/>

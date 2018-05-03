@@ -5,7 +5,7 @@ const FIAT = 'CAD'
 /* ---------------------------------------------------------------------------------
 fetch the ticker data from coinmarketcap.com, then:
 Merge the set with coincroc's set */
-export const loadTickerData = (industryElements, skip=0, limit=30) => {
+export const loadTickerData = (industryElements, skip=0, limit=100) => {
   /* At the moment, coinmarketcap.com Errors on the preflight CORS check when we submit
   the options in a requeset... */
   const options = {
@@ -46,6 +46,5 @@ Fetch and return the cryptocurrency details ( desc, etc .... */
 export const loadDetails = (tokenSymbol) => {
   return axios.get(`${baseAPI}/cryptocurrencies?filter[where][symbol]=${tokenSymbol}`)
 }
-
 
 

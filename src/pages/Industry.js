@@ -11,6 +11,7 @@ export class Industry extends Component{
 	constructor(props){
 		super(props)
 		this.state = {
+			search: '',
 			accessToken: '',
 			isLoaded: 'false',
 			cryptocurrencies: '',
@@ -107,6 +108,13 @@ export class Industry extends Component{
 		})
 	}		
 
+	updateSearch = (e) => {
+		const query = e.target.value.substr(0, 20).toLowerCase()
+		this.setState({
+			search: query
+		})
+	}	
+
 	render(){
 		const tickerData = this.state.tickerData || []
 		const rowItems = tickerData.map( crypto => {
@@ -119,6 +127,15 @@ export class Industry extends Component{
 			<div className="industry">
 				<Navbar isLoggedIn={this.state.accessToken}/>
 				<div className="mui-container">
+				<div className="mui-form--inline">
+							{/* <div className="mui-textfield mui-col-sm-6">
+								<input type="text"
+								value={this.state.query}
+								onChange={this.updateSearch}
+								placeholder="Search"
+								/>
+							</div> */}
+				</div>				
 					<div className="mui-row industry">
 						<hr/>
 						<h5>Showing {this.state.tickerData.length} {this.props.match.params.name} cryptocurrencies</h5>

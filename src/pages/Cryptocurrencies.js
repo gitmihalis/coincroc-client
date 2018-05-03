@@ -1,18 +1,22 @@
 import React, { Component } from 'react'
+import {Link} from 'react-router-dom'
 import { CryptoTableMenu, CryptoRowItem} from '../components/CryptoTable'
 import { loadCryptos, loadTickerData, parseIndustries } from '../services/cryptocurrencyService'
 import {Navbar} from '../components/Navbar'
 import cookie from 'react-cookies'
+import Select from 'react-select'
+import 'react-select/dist/react-select.css'
 
 export class Cryptocurrencies extends Component {
 		state = {
-			SKIP_AMOUNT: 30,
+			SKIP_AMOUNT: 100,
 			paginate: {
 				start: 0,
 				limit: 0
 			},
 			search: '',
 			allCrypto: '',
+			selectedCrypto: '',
 			cryptoTableData: '',
 			industries: '',
 			industryMap: '',
@@ -99,11 +103,8 @@ export class Cryptocurrencies extends Component {
 			})
 	}
 
-	updateSearch = (e) => {
-		const query = e.target.value.substr(0, 20).toLowerCase()
-		this.setState({
-			search: query
-		})
+	onSelectionChangeCrypto = (selectedValue) => {
+		this.setState({selectedCrypto: selectedValue})
 	}
 
 	render(){
@@ -121,33 +122,32 @@ export class Cryptocurrencies extends Component {
 							 key={crypto.id} />)
 		})
 
+		let selectedSymbol = this.state.selectedCrypto ? this.state.selectedCrypto.symbol : ''
+
 		return (
 			<div>
 				<Navbar isLoggedIn={accessToken}/>
 				<div className="mui-container cryptocurrency">
 					<div className="mui-row">
-						<div className="mui-form--inline">
-							<div className="mui-textfield mui-col-sm-6">
-								<input type="text"
-								value={this.state.query}
-								onChange={this.updateSearch}
-								placeholder="Search"
-								/>
+					  <div>
+							<div id="select-cryptocurrency" className="mui-col-sm-6">
+								<label><br/>
+									<Select
+										value={this.state.selectedCrypto}
+										onChange={this.onSelectionChangeCrypto} 
+										name="allCrypto"
+										options={this.state.allCrypto}
+										labelKey="name"
+										valueKey="id"
+									/>
+								</label>
 							</div>
+
 							<div className="mui-textfield mui-col-sm-6">
 								<div className="button-group">							
-									<button id="show-all"
-									className="mui-btn mui-btn--raised mui-col-sm-4"
-									onClick={() => { 
-										loadTickerData(this.state.industryMap, 0, 0).then(pageData => {
-											this.setState({
-												cryptoTableData: pageData,
-												paginate: {
-													start: 0
-												}
-											}, () => document.documentElement.scrollTop = 0)
-										})
-									}}>SHOW All</button>
+									<Link 
+										to={`/cryptocurrencies/${selectedSymbol}`}
+										className="mui-btn mui-btn--raised mui-col-sm-4">Search</Link>
 								</div>
 							</div>						
 						</div>

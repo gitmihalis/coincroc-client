@@ -42,7 +42,7 @@ export class Dashboard extends Component{
 				this.setState({errorMessage: message})
 			})					
 
-		loadIndustries(1)
+		loadIndustries(0)
 			.then(res => {
 				const options = res.data
 				this.setState({ industryOptions: options })
@@ -160,7 +160,7 @@ export class Dashboard extends Component{
 		}
 		const newIndustry = {
 			name: this.state.newIndustry,
-			depth: 1
+			depth: 0
 		}
 		createIndustry(newIndustry)
 			.then(res => {
