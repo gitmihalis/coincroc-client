@@ -1,14 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { $round, posNegStyle } from '../utils'
-
-/* 
-must return:
-  <tr>
-    <td>Cell 1-1</td>
-    <td>Cell 1-2</td>
-  </tr> 
- */
+import { $round, posNegStyle } from '../../utils'
 
 export const IndustryRowItem = (props) => {
 

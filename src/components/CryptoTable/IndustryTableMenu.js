@@ -1,7 +1,6 @@
 import React from 'react'
 
 export const IndustryTableMenu = props => (
-  
 	<thead>
     <tr>
       <th className="currency-name">

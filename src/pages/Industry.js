@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios'
-import {IndustryTableMenu} from '../components/IndustryTableMenu'
-import {IndustryRowItem} from '../components/IndustryRowItem'
+import {IndustryTableMenu, IndustryRowItem} from '../components/CryptoTable'
 import { baseAPI } from '../utils'
 import {Navbar} from '../components/Navbar'
 import cookie from 'react-cookies'
