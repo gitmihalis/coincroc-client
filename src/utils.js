@@ -37,6 +37,4 @@ export const posNegStyle = (value) => {
   return style;
 }
 
-export const baseAPI = "https://cryptocat-hqnjeljthb.now.sh/api"
-
-
+export const baseAPI = "https://coincrocodile.space/api"
