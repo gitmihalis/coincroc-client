@@ -7,7 +7,7 @@ import './css'
 
 
 const App = () => (
-  <div>
+	<div id="content" class="mui-container-fluid">
 			<Main />
 			<Footer />
 	</div>
